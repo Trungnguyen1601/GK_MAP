@@ -12,10 +12,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.example.project_test1.R;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -23,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     TextView registerRedirectText;
     FirebaseAuth firebaseAuth;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private FirebaseAuth.AuthStateListener authStateListener;
 
@@ -44,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Toast.makeText(LoginActivity.this, "User logged in ", Toast.LENGTH_SHORT).show();
-                    Intent I = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent I = new Intent(LoginActivity.this, MainActivity_Teacher.class);
                     startActivity(I);
                 } else {
                     Toast.makeText(LoginActivity.this, "Login to continue", Toast.LENGTH_SHORT).show();
@@ -63,6 +70,12 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Khai báo Firebase
+                CollectionReference usersRef = db.collection("users");
+
+
+
+
                 String userEmail = loginEmail.getText().toString();
                 String userPassword = loginPassword.getText().toString();
                 if (userEmail.isEmpty()) {
@@ -80,7 +93,29 @@ public class LoginActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Not sucessfull", Toast.LENGTH_SHORT).show();
                             } else {
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                Query query = usersRef.whereEqualTo("account", userEmail);
+
+                                query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                            String className = (String) document.get("role");
+                                            if (className.equals("student"))
+                                            {
+                                                startActivity(new Intent(LoginActivity.this, MainActivity_Student.class));
+
+                                            }
+                                            if (className.equals("teacher"))
+                                            {
+                                                startActivity(new Intent(LoginActivity.this, MainActivity_Teacher.class));
+
+                                            }
+                                            // Đây là tên lớp (className) của người dùng có tên (name) là "thanh"
+                                        }
+                                    }
+                                });
+
+
                             }
                         }
                     });

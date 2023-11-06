@@ -1,9 +1,8 @@
-package com.example.project_test1.Fragment;
+package com.example.project_test1.Fragment.Teacher;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -11,31 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.project_test1.Activity.DetailedActivity;
-import com.example.project_test1.Activity.MainActivity;
 import com.example.project_test1.Helper.ListAdapter;
 import com.example.project_test1.Helper.ListData;
 import com.example.project_test1.R;
-import com.example.project_test1.databinding.ActivityMainBinding;
-import com.example.project_test1.databinding.FragmentHomeBinding;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.project_test1.databinding.FragmentHomeTeacherBinding;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
+ * Use the {@link HomeFragment_Teacher#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment_Teacher extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,13 +45,14 @@ public class HomeFragment extends Fragment {
 
 
     // Project
-    FragmentHomeBinding binding;
+
+    FragmentHomeTeacherBinding binding;
     ListAdapter listAdapter;
     ArrayList<ListData> dataArrayList = new ArrayList<>();
     ListData listData;
 
 
-    public HomeFragment() {
+    public HomeFragment_Teacher() {
         // Required empty public constructor
     }
 
@@ -73,8 +65,8 @@ public class HomeFragment extends Fragment {
      * @return A new instance of fragment HomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static HomeFragment_Teacher newInstance(String param1, String param2) {
+        HomeFragment_Teacher fragment = new HomeFragment_Teacher();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -96,7 +88,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentHomeTeacherBinding.inflate(inflater, container, false);
 
         int[] imageList = {R.drawable.pasta, R.drawable.maggi};
         int[] ingredientList = {R.string.pastaIngredients, R.string.maggiIngredients, R.string.cakeIngredients, R.string.pancakeIngredients, R.string.pizzaIngredients, R.string.burgerIngredients,

@@ -1,4 +1,4 @@
-package com.example.project_test1.Fragment;
+package com.example.project_test1.Fragment.Teacher;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.example.project_test1.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SubscriptionsFragment#newInstance} factory method to
+ * Use the {@link ShortsFragment_Teacher#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SubscriptionsFragment extends Fragment {
+public class ShortsFragment_Teacher extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class SubscriptionsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public SubscriptionsFragment() {
+    public ShortsFragment_Teacher() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class SubscriptionsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SubscriptionsFragment.
+     * @return A new instance of fragment ShortsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SubscriptionsFragment newInstance(String param1, String param2) {
-        SubscriptionsFragment fragment = new SubscriptionsFragment();
+    public static ShortsFragment_Teacher newInstance(String param1, String param2) {
+        ShortsFragment_Teacher fragment = new ShortsFragment_Teacher();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class SubscriptionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_subscriptions, container, false);
+        return inflater.inflate(R.layout.fragment_shorts_teacher, container, false);
     }
 }

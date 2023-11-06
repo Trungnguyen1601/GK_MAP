@@ -1,4 +1,4 @@
-package com.example.project_test1.Fragment;
+package com.example.project_test1.Fragment.Teacher;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,10 +18,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LibraryFragment#newInstance} factory method to
+ * Use the {@link LibraryFragment_Teacher#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LibraryFragment extends Fragment {
+public class LibraryFragment_Teacher extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,7 +37,7 @@ public class LibraryFragment extends Fragment {
     FirebaseUser user;
     private FirebaseAuth.AuthStateListener authStateListener;
 
-    public LibraryFragment() {
+    public LibraryFragment_Teacher() {
         // Required empty public constructor
     }
 
@@ -50,8 +50,8 @@ public class LibraryFragment extends Fragment {
      * @return A new instance of fragment LibraryFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LibraryFragment newInstance(String param1, String param2) {
-        LibraryFragment fragment = new LibraryFragment();
+    public static LibraryFragment_Teacher newInstance(String param1, String param2) {
+        LibraryFragment_Teacher fragment = new LibraryFragment_Teacher();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,7 +72,7 @@ public class LibraryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_library, container, false);
+        View view = inflater.inflate(R.layout.fragment_attendance_teacher, container, false);
 
         firebaseAuth = FirebaseAuth.getInstance();
         btnLogOut = (Button) view.findViewById(R.id.btnLogOut);

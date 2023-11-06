@@ -1,13 +1,32 @@
 {
   "project_info": {
-    "project_number": "266948471498",
-    "project_id": "project-39870",
-    "storage_bucket": "project-39870.appspot.com"
+    "project_number": "976639442798",
+    "project_id": "user-config-cc5bb",
+    "storage_bucket": "user-config-cc5bb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:266948471498:android:1333a2bd1da67ccfda6233",
+        "mobilesdk_app_id": "1:976639442798:android:2097af6ca49a80da37cb7f",
+        "android_client_info": {
+          "package_name": "com.example.profile_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmqYSL24qlUwcpS0fBtuiqztd6JZUHT6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976639442798:android:993e90c60d937df837cb7f",
         "android_client_info": {
           "package_name": "com.example.project_test1"
         }
@@ -15,7 +34,45 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCFP0ln03N0WQztpHPflW680iQ5apFMcOE"
+          "current_key": "AIzaSyCmqYSL24qlUwcpS0fBtuiqztd6JZUHT6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976639442798:android:d96338e831804d7a37cb7f",
+        "android_client_info": {
+          "package_name": "com.example.test_firestore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmqYSL24qlUwcpS0fBtuiqztd6JZUHT6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976639442798:android:575ace91a0cc48e537cb7f",
+        "android_client_info": {
+          "package_name": "com.example.user_register"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmqYSL24qlUwcpS0fBtuiqztd6JZUHT6U"
         }
       ],
       "services": {

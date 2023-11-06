@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         "SignUp unsuccessful: " + task.getException().getMessage(),
                                         Toast.LENGTH_SHORT).show();
                             } else {
-                                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                startActivity(new Intent(RegisterActivity.this, MainActivity_Teacher.class));
                             }
                         }
                     });

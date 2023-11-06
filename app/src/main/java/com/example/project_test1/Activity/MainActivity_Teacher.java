@@ -21,16 +21,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.project_test1.Fragment.HomeFragment;
-import com.example.project_test1.Fragment.LibraryFragment;
-import com.example.project_test1.Fragment.ShortsFragment;
-import com.example.project_test1.Fragment.SubscriptionsFragment;
+import com.example.project_test1.Fragment.Teacher.HomeFragment_Teacher;
+import com.example.project_test1.Fragment.Teacher.LibraryFragment_Teacher;
+import com.example.project_test1.Fragment.Teacher.ShortsFragment_Teacher;
+import com.example.project_test1.Fragment.Teacher.SubscriptionsFragment_Teacher;
 import com.example.project_test1.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity_Teacher extends AppCompatActivity {
 
     FloatingActionButton fab;
     DrawerLayout drawerLayout;
@@ -55,27 +55,27 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null)
         {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout,new HomeFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout,new HomeFragment_Teacher()).commit();
             navigationView.setCheckedItem(R.id.nav_view);
         }
-        replaceFragment(new HomeFragment());
+        replaceFragment(new HomeFragment_Teacher());
 
         bottomNavigationView.setBackground(null);
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
             if(item.getItemId() == R.id.home)
             {
-                replaceFragment(new HomeFragment());
+                replaceFragment(new HomeFragment_Teacher());
             } else if (item.getItemId() == R.id.shorts) {
-                replaceFragment(new ShortsFragment());
+                replaceFragment(new ShortsFragment_Teacher());
             }
             else if (item.getItemId() == R.id.subscriptions)
             {
-                replaceFragment(new SubscriptionsFragment());
+                replaceFragment(new SubscriptionsFragment_Teacher());
             }
             else if(item.getItemId() == R.id.library)
             {
-                replaceFragment(new LibraryFragment());
+                replaceFragment(new LibraryFragment_Teacher());
             }
 
 
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
-                Toast.makeText(MainActivity.this,"Upload a Video is clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity_Teacher.this,"Upload a Video is clicked",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
-                Toast.makeText(MainActivity.this,"Create a short is Clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity_Teacher.this,"Create a short is Clicked",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
-                Toast.makeText(MainActivity.this,"Go live is Clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity_Teacher.this,"Go live is Clicked",Toast.LENGTH_SHORT).show();
 
             }
         });

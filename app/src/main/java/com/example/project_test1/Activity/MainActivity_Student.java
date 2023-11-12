@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -56,29 +57,33 @@ public class MainActivity_Student extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        Intent intent = getIntent();
+        String data = intent.getStringExtra("email");
+
+
         if (savedInstanceState == null)
         {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout,new HomeFragment_Student()).commit();
             navigationView.setCheckedItem(R.id.nav_view);
         }
-        replaceFragment(new HomeFragment_Student());
+        replaceFragment(new HomeFragment_Student(),data);
 
         bottomNavigationView.setBackground(null);
         bottomNavigationView.setOnItemSelectedListener(item -> {
 
             if(item.getItemId() == R.id.home)
             {
-                replaceFragment(new HomeFragment_Student());
+                replaceFragment(new HomeFragment_Student(),data);
             } else if (item.getItemId() == R.id.shorts) {
-                replaceFragment(new ShortsFragment_Student());
+                replaceFragment(new ShortsFragment_Student(),data);
             }
             else if (item.getItemId() == R.id.subscriptions)
             {
-                replaceFragment(new SubscriptionFragment_Student());
+                replaceFragment(new SubscriptionFragment_Student(),data);
             }
             else if(item.getItemId() == R.id.library)
             {
-                replaceFragment(new LibraryFragment_Student());
+                replaceFragment(new LibraryFragment_Student(),data);
             }
 
 
@@ -93,10 +98,15 @@ public class MainActivity_Student extends AppCompatActivity {
         });
 
     }
-    private  void replaceFragment(Fragment fragment) {
+    private  void replaceFragment(Fragment fragment, String data) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putString("key",data);
+
+        fragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.fragment_layout, fragment);
+
         fragmentTransaction.commit();
     }
 

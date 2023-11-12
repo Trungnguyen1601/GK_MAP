@@ -72,7 +72,7 @@ public class LibraryFragment_Teacher extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_attendance_teacher, container, false);
+        View view = inflater.inflate(R.layout.fragment_library_teacher, container, false);
 
         firebaseAuth = FirebaseAuth.getInstance();
         btnLogOut = (Button) view.findViewById(R.id.btnLogOut);

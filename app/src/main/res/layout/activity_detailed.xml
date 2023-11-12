@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/detailName"
+        android:id="@+id/TitleName"
         android:layout_marginTop="14dp"
         android:text="Information "
         android:textSize="24sp"
@@ -55,8 +55,24 @@
         android:text="time"
         android:layout_marginStart="10dp"
         android:textSize="16sp"
-        android:id="@+id/detailTime"/>
+        android:id="@+id/detailID"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên:"
+        android:textColor="@color/lavender"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginStart="10dp"
+        android:textSize="16sp"
+        android:id="@+id/detailName"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -50,9 +50,34 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Toast.makeText(LoginActivity.this, "User logged in ", Toast.LENGTH_SHORT).show();
-                    Intent I = new Intent(LoginActivity.this, MainActivity_Teacher.class);
-                    startActivity(I);
+                    CollectionReference usersRef = db.collection("users");
+                    Query query = usersRef.whereEqualTo("account", user.getEmail());
+
+                    query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                String className = (String) document.get("role");
+                                if (className.equals("student"))
+                                {
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity_Student.class);
+                                    intent.putExtra("email", user.getEmail());
+                                    startActivity(intent);
+
+                                }
+                                if (className.equals("teacher"))
+                                {
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity_Teacher.class);
+                                    intent.putExtra("email", user.getEmail());
+                                    startActivity(intent);
+
+                                }
+                                // Đây là tên lớp (className) của người dùng có tên (name) là "thanh"
+                            }
+                        }
+                    });
+
+
                 } else {
                     Toast.makeText(LoginActivity.this, "Login to continue", Toast.LENGTH_SHORT).show();
                 }
@@ -102,12 +127,16 @@ public class LoginActivity extends AppCompatActivity {
                                             String className = (String) document.get("role");
                                             if (className.equals("student"))
                                             {
-                                                startActivity(new Intent(LoginActivity.this, MainActivity_Student.class));
+                                                Intent intent = new Intent(LoginActivity.this, MainActivity_Student.class);
+                                                intent.putExtra("email", userEmail);
+                                                startActivity(intent);
 
                                             }
                                             if (className.equals("teacher"))
                                             {
-                                                startActivity(new Intent(LoginActivity.this, MainActivity_Teacher.class));
+                                                Intent intent = new Intent(LoginActivity.this, MainActivity_Teacher.class);
+                                                intent.putExtra("email", userEmail);
+                                                startActivity(intent);
 
                                             }
                                             // Đây là tên lớp (className) của người dùng có tên (name) là "thanh"

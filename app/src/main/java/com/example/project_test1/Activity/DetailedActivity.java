@@ -21,13 +21,13 @@ public class DetailedActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         if (intent != null){
             String name = intent.getStringExtra("name");
-            String time = intent.getStringExtra("time");
-            int ingredients = intent.getIntExtra("ingredients", R.string.maggiIngredients);
-            int desc = intent.getIntExtra("desc", R.string.maggieDesc);
+            String ID = intent.getStringExtra("ID");
+            String lop = intent.getStringExtra("lop");
+            //int desc = intent.getIntExtra("desc", R.string.maggieDesc);
             int image = intent.getIntExtra("image", R.drawable.pasta);
 
             binding.detailName.setText(name);
-            binding.detailTime.setText(time);
+            binding.detailID.setText(ID);
 //            binding.detailDesc.setText(desc);
 //            binding.detailIngredients.setText(ingredients);
             binding.detailImage.setImageResource(image);

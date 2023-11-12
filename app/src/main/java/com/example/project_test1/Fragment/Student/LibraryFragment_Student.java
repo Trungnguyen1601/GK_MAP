@@ -1,5 +1,6 @@
 package com.example.project_test1.Fragment.Student;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.project_test1.Activity.LoginActivity;
 import com.example.project_test1.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.jetbrains.annotations.NotNull;
+import com.budiyev.android.codescanner.CodeScanner;
+import com.budiyev.android.codescanner.CodeScannerView;
+import com.budiyev.android.codescanner.DecodeCallback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +37,13 @@ public class LibraryFragment_Student extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
+    Button btnLogOut;
+    TextView txtUser;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     public LibraryFragment_Student() {
         // Required empty public constructor
@@ -61,6 +80,39 @@ public class LibraryFragment_Student extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_library_student, container, false);
+        View view = inflater.inflate(R.layout.fragment_library_student, container, false);
+        firebaseAuth = FirebaseAuth.getInstance();
+        btnLogOut = (Button) view.findViewById(R.id.btnLogOut);
+        txtUser = (TextView) view.findViewById(R.id.txtUser);
+        user = firebaseAuth.getCurrentUser();
+
+        if (user == null ) {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        }
+        else {
+            txtUser.setText(user.getEmail());
+        }
+
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+
+            }
+        });
+
+
+
+
+
+
+
+        return view;
     }
 }

@@ -1,43 +1,38 @@
 package com.example.project_test1.Helper;
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.example.project_test1.R;
+import com.example.project_test1.models.User;
 
 import java.util.ArrayList;
 
-public class ListAdapter extends ArrayAdapter<ListData> {
-    public ListAdapter(@NonNull Context context, ArrayList<ListData> dataArrayList) {
-        super(context, R.layout.list_item, dataArrayList);
+public class ListAdapter extends ArrayAdapter<User> {
+    public ListAdapter(Context context, ArrayList<User> Users) {
+        super(context, 0, Users);
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
-        ListData listData = getItem(position);
-
-        if (view == null){
-            view = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        User User = getItem(position);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
 
-        ImageView listImage = view.findViewById(R.id.listImage);
-        TextView listName = view.findViewById(R.id.listName);
-        TextView listTime = view.findViewById(R.id.listTime);
+        TextView nameTextView = convertView.findViewById(R.id.nameTextView);
+        TextView idTextView = convertView.findViewById(R.id.idTextView);
 
-        listImage.setImageResource(listData.image);
-        listName.setText(listData.name);
-        listTime.setText(listData.time);
 
-        return view;
+        nameTextView.setText(User.getName());
+        idTextView.setText(User.getID());
+
+
+        return convertView;
     }
 }

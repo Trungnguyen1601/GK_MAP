@@ -1,13 +1,21 @@
 package com.example.project_test1.Fragment.Student;
 
+import static android.content.ContentValues.TAG;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.project_test1.Activity.LoginActivity;
+import com.example.project_test1.Activity.ScanQRActivity;
 import com.example.project_test1.R;
 
 /**
@@ -25,7 +33,7 @@ public class ShortsFragment_Student extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    String data;
     public ShortsFragment_Student() {
         // Required empty public constructor
     }
@@ -61,6 +69,24 @@ public class ShortsFragment_Student extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shorts_student, container, false);
+        View view = inflater.inflate(R.layout.fragment_shorts_student, container, false);
+
+
+        Bundle args = getArguments();
+        if (args != null) {
+            data = args.getString("key");
+            TextView textView = view.findViewById(R.id.text_view);
+            textView.setText(data);
+            Log.d(TAG, data);
+        }
+
+        Intent intent = new Intent(getActivity(), ScanQRActivity.class);
+        intent.putExtra("email_QR", data);
+        startActivity(intent);
+        getActivity().finish();
+
+
+
+        return view;
     }
 }

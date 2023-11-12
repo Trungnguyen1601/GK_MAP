@@ -12,6 +12,9 @@
         android:textSize="30sp"
         android:gravity="center"
         android:text="Student"
+        android:id="@+id/text_view"
         android:textColor="@color/lavender"/>
+
+
 
 </FrameLayout>

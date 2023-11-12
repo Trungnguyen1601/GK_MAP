@@ -3,21 +3,33 @@ package com.example.project_test1.Fragment.Teacher;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.project_test1.Activity.DetailedActivity;
 import com.example.project_test1.Helper.ListAdapter;
 import com.example.project_test1.Helper.ListData;
 import com.example.project_test1.R;
 import com.example.project_test1.databinding.FragmentHomeTeacherBinding;
+import com.example.project_test1.models.User;
+import com.example.project_test1.models.UserAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -37,21 +49,15 @@ public class HomeFragment_Teacher extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private TextView textView_nhietdo;
-    private TextView textView_doam;
-    private Button btn_led;
-    private Switch switch_led;
-    boolean state_led = true;
-
-
     // Project
-
     FragmentHomeTeacherBinding binding;
     ListAdapter listAdapter;
     ArrayList<ListData> dataArrayList = new ArrayList<>();
     ListData listData;
 
-
+    private ListView listView;
+    private ListAdapter adapter;
+    private FirebaseFirestore firestore;
     public HomeFragment_Teacher() {
         // Required empty public constructor
     }
@@ -81,44 +87,86 @@ public class HomeFragment_Teacher extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeTeacherBinding.inflate(inflater, container, false);
+        //View view = inflater.inflate(R.layout.fragment_home_teacher, container, false);
+        //listView = view.findViewById(R.id.listView);
+        adapter = new ListAdapter(getActivity(), new ArrayList<>());
 
-        int[] imageList = {R.drawable.pasta, R.drawable.maggi};
-        int[] ingredientList = {R.string.pastaIngredients, R.string.maggiIngredients, R.string.cakeIngredients, R.string.pancakeIngredients, R.string.pizzaIngredients, R.string.burgerIngredients,
-                R.string.friesIngredients, R.string.friesIngredients, R.string.friesIngredients, R.string.friesIngredients, R.string.friesIngredients};
-        int[] descList = {R.string.pastaDesc, R.string.maggieDesc, R.string.cakeDesc, R.string.pancakeDesc, R.string.pizzaDesc, R.string.burgerDesc,
-                R.string.friesDesc, R.string.friesDesc, R.string.friesDesc, R.string.friesDesc, R.string.friesDesc};
-        String[] nameList = {"Trung", "Khiem"};
-        String[] timeList = {"20193154", "20191234"};
+        binding.listView.setAdapter(adapter);
+        binding.listView.setClickable(true);
 
-        for (int i = 0; i < imageList.length; i++) {
-            listData = new ListData(nameList[i], timeList[i], ingredientList[i], descList[i], imageList[i]);
-            dataArrayList.add(listData);
-        }
-        listAdapter = new ListAdapter(getActivity(), dataArrayList);
-        binding.listview.setAdapter(listAdapter);
-        binding.listview.setClickable(true);
+        firestore = FirebaseFirestore.getInstance();
 
-        binding.listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), DetailedActivity.class);
-                intent.putExtra("name", nameList[i]);
-                intent.putExtra("time", timeList[i]);
-                intent.putExtra("ingredients", ingredientList[i]);
-                intent.putExtra("desc", descList[i]);
-                intent.putExtra("image", imageList[i]);
-                startActivity(intent);
+
+
+        loadStudentData();
+
+
+        binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                // Lấy dữ liệu của item được chọn từ Adapter
+                User selectedUser = (User) adapter.getItem(position);
+
+                // Kiểm tra xem dữ liệu có tồn tại không
+                if (selectedUser != null) {
+                    // Lấy thông tin cụ thể của item
+                    String name = selectedUser.getName();
+                    String ID = selectedUser.getID();
+                    boolean xacthuc = selectedUser.isXacthuc();
+                    String Lop = selectedUser.getLop();
+
+                    // Thực hiện các thao tác với dữ liệu như chuyển sang DetailedActivity
+                    Intent intent = new Intent(getContext(), DetailedActivity.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("ID", ID);
+                    intent.putExtra("xacthuc", xacthuc);
+                    intent.putExtra("lop",Lop);
+                    startActivity(intent);
+                }
             }
         });
         return binding.getRoot();
 
+    }
+
+    private void loadStudentData() {
+        firestore.collection("users")
+                .whereEqualTo("role","student")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    ArrayList<User> students = new ArrayList<>();
+                    for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        // Chỉ lấy các trường dữ liệu cần thiết từ tài liệu
+                        String name = documentSnapshot.getString("name");
+                        String ID = documentSnapshot.getString("MSSV");
+                        Boolean xacthucObject = documentSnapshot.getBoolean("diemdanh");
+                        String Lop = documentSnapshot.getString("class");
+
+
+                        // Kiểm tra xem xacthucObject có giá trị không
+                        boolean xacthuc = xacthucObject != null && xacthucObject.booleanValue();
+
+                        // Tạo đối tượng Student từ các trường dữ liệu đã lấy
+                        User student = new User(Lop,name, ID, xacthuc);
+                        students.add(student);
+                    }
+                    adapter.clear();
+                    adapter.addAll(students);
+                    adapter.notifyDataSetChanged();
+                })
+                .addOnFailureListener(e -> {
+                    // Xử lý lỗi
+                });
+    }
+    // Phương thức để cập nhật UI khi có sự thay đổi
+    private void updateUI() {
+        // Cập nhật UI của bạn ở đây
+        // Ví dụ: Hiển thị thông báo, cập nhật ListView, v.v.
+        adapter.notifyDataSetChanged();
     }
 }

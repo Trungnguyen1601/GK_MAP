@@ -119,6 +119,7 @@ public class HomeFragment_Teacher extends Fragment {
                     String ID = selectedUser.getID();
                     boolean xacthuc = selectedUser.isXacthuc();
                     String Lop = selectedUser.getLop();
+                    String Image_URL = selectedUser.getImage_URL();
 
                     // Thực hiện các thao tác với dữ liệu như chuyển sang DetailedActivity
                     Intent intent = new Intent(getContext(), DetailedActivity.class);
@@ -126,6 +127,7 @@ public class HomeFragment_Teacher extends Fragment {
                     intent.putExtra("ID", ID);
                     intent.putExtra("xacthuc", xacthuc);
                     intent.putExtra("lop",Lop);
+                    intent.putExtra("Image_URL",Image_URL);
                     startActivity(intent);
                 }
             }
@@ -146,13 +148,14 @@ public class HomeFragment_Teacher extends Fragment {
                         String ID = documentSnapshot.getString("MSSV");
                         Boolean xacthucObject = documentSnapshot.getBoolean("diemdanh");
                         String Lop = documentSnapshot.getString("class");
+                        String Image_URL = documentSnapshot.getString("Image_URL");
 
 
                         // Kiểm tra xem xacthucObject có giá trị không
                         boolean xacthuc = xacthucObject != null && xacthucObject.booleanValue();
 
                         // Tạo đối tượng Student từ các trường dữ liệu đã lấy
-                        User student = new User(Lop,name, ID, xacthuc);
+                        User student = new User(Lop,name, ID, xacthuc,Image_URL);
                         students.add(student);
                     }
                     adapter.clear();

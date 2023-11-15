@@ -8,6 +8,7 @@ public class User {
     private String name;
     private String ID;
     private boolean xacthuc;
+    private String image_URL;
 
     public User() {}
 
@@ -28,6 +29,14 @@ public class User {
         this.name = name;
         this.ID = ID;
         this.xacthuc = xacthuc;
+    }
+
+    public User(String lop, String name, String ID, boolean xacthuc, String image_URL) {
+        Lop = lop;
+        this.name = name;
+        this.ID = ID;
+        this.xacthuc = xacthuc;
+        this.image_URL = image_URL;
     }
 
     public String getName() {
@@ -68,5 +77,13 @@ public class User {
 
     public void setCheck(boolean isChecked) {
         xacthuc = isChecked;
+    }
+
+    public String getImage_URL() {
+        return image_URL;
+    }
+
+    public void setImage_URL(String image_URL) {
+        this.image_URL = image_URL;
     }
 }

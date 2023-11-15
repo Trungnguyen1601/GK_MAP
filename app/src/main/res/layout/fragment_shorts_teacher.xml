@@ -12,18 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
+        <!-- ImageButton (QR Code) -->
         <ImageButton
             android:id="@+id/btn_MakeQRCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_qr_code_24"/>
-        <TextView
-            android:layout_width="wrap_content"
+
+        <!-- Button (Show List) -->
+        <Button
+            android:id="@+id/DateListButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Show List"
+            android:padding="8dp"/>
 
-            android:text="Điểm danh ngày 10"/>
-
+        <!-- ImageView (Refresh) -->
         <ImageView
             android:id="@+id/btn_refresh"
             android:layout_width="50dp"
@@ -31,7 +37,6 @@
             android:src="@drawable/baseline_refresh_24" />
 
     </LinearLayout>
-
 
     <ListView
         android:id="@+id/listView"

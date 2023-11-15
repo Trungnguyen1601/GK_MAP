@@ -80,7 +80,7 @@ public class ScanQRActivity extends AppCompatActivity {
 
 
                             Toast.makeText(ScanQRActivity.this, result.getText(), Toast.LENGTH_LONG).show();
-                            if (result.getText().equals("trung")) {
+                            if (result.getText().equals("Ngay 10/10/2023")) {
 
                                 String targetName = "trung"; // Tên người dùng cần cập nhật
                                 db = FirebaseFirestore.getInstance();

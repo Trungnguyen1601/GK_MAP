@@ -29,13 +29,13 @@
         app:cardElevation="8dp">
 
         <ImageView
-            android:layout_width="380dp"
-            android:layout_height="200dp"
             android:id="@+id/detailImage"
-            android:layout_marginTop="10dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
-            android:src="@drawable/maggi"
-            android:scaleType="centerCrop"/>
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/maggi" />
 
     </androidx.cardview.widget.CardView>
 

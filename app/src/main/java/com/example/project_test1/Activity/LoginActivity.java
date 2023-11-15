@@ -45,11 +45,26 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogIn);
         registerRedirectText = findViewById(R.id.txtRegister);
 
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        CollectionReference collectionRef = db.collection("Dia_chi");
+//
+//        collectionRef.get()
+//                .addOnSuccessListener(queryDocumentSnapshots -> {
+//                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+//                        // Thêm trường mới cho mỗi tài liệu
+//                        document.getReference().update("Ngay_diemdanh", "diemdanh1");
+//                    }
+//                })
+//                .addOnFailureListener(e -> {
+//                    // Xử lý lỗi
+//                });
+
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    loginEmail.setText(user.getEmail());
                     CollectionReference usersRef = db.collection("users");
                     Query query = usersRef.whereEqualTo("account", user.getEmail());
 

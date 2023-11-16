@@ -45,11 +45,9 @@
                 android:drawableStart="@drawable/ic_person_24"
                 android:drawablePadding="8dp"
                 android:padding="8dp"
-                android:hint="Email"
+                android:hint="email@example.com"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/black"
-
-                />
+                android:textColor="@color/black" />
 
             <EditText
                 android:id="@+id/edPassword"
@@ -78,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:text="Already have an account? Sign in Here"
+                android:textColor="@color/purple"
                 android:textSize="18sp" />
         </LinearLayout>
 

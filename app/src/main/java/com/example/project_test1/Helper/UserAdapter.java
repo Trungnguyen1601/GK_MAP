@@ -1,4 +1,4 @@
-package com.example.project_test1.models;
+package com.example.project_test1.Helper;
 
 import static android.content.ContentValues.TAG;
 
@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.project_test1.R;
+import com.example.project_test1.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,6 +30,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class UserAdapter extends ArrayAdapter<User> {
 
@@ -110,7 +112,7 @@ public class UserAdapter extends ArrayAdapter<User> {
         Database = FirebaseFirestore.getInstance();
         CollectionReference usersRef = Database.collection("users");
         //Query query = usersRef.whereEqualTo("name", targetName);
-        Query query =usersRef.whereEqualTo("MSSV",user_ID);
+        Query query = usersRef.whereEqualTo("MSSV",user_ID);
 
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -118,20 +120,31 @@ public class UserAdapter extends ArrayAdapter<User> {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         // 3. Lấy reference của tài liệu cần cập nhật
-                        DocumentReference docRef = usersRef.document(document.getId());
+                        String date_dd = (String) document.get("Ngay_diemdanh");
+                        ArrayList<Map<String, Object>> ngayDiemDanh = (ArrayList<Map<String, Object>>) document.get("ngay");
 
-                        // 4. Sử dụng phương thức update() để cập nhật thông tin
-                        docRef.update("diemdanh", isChecked)
+                        // Loop through the array to find the specific date and update its "present" value
+                        for (Map<String, Object> attendence : ngayDiemDanh) {
+                            String date = (String) attendence.get("date");
+                            // Assuming you want to update "present" for a specific date, replace "targetDate" with your target date
+                            if (date != null && date.equals(date_dd)) {
+                                attendence.put("presented", isChecked); // Update the "presented" value
+                                break; // Break the loop once updated
+                            }
+                        }
+
+                        // Update the modified array back to Firestore
+                        document.getReference().update("ngay", ngayDiemDanh)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "Document updated successfully");
+                                        // Update successful
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "Error updating document", e);
+                                        // Handle failure
                                     }
                                 });
                     }

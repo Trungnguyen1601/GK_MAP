@@ -4,9 +4,15 @@ public class Attendance {
     private String date;
     private boolean isPresent;
     private boolean isAttendanced;
+    private int week;
 
     public Attendance() {
         // Required empty public constructor for Firestore
+    }
+
+    public Attendance(int week,String date) {
+        this.date = date;
+        this.week = week;
     }
 
     public Attendance(String date, boolean isPresent) {
@@ -18,6 +24,13 @@ public class Attendance {
         this.date = date;
         this.isPresent = isPresent;
         this.isAttendanced = isAttendanced;
+    }
+
+    public Attendance(int week,String date, boolean isPresent, boolean isAttendanced) {
+        this.date = date;
+        this.isPresent = isPresent;
+        this.isAttendanced = isAttendanced;
+        this.week = week;
     }
 
     public String getDate() {
@@ -42,5 +55,15 @@ public class Attendance {
 
     public void setAttendanced(boolean attendanced) {
         isAttendanced = attendanced;
+    }
+
+    public int getWeek() {
+        return week;
+    }
+
+
+
+    public void setWeek(int week) {
+        this.week = week;
     }
 }

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -23,15 +24,26 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project_test1.Helper.FireStore_Help;
+import com.example.project_test1.Helper.WeekAdapter;
 import com.example.project_test1.R;
+import com.example.project_test1.models.Attendance;
 import com.example.project_test1.models.User;
-import com.example.project_test1.models.UserAdapter;
+import com.example.project_test1.Helper.UserAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -44,7 +56,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,8 +91,11 @@ public class ShortsFragment_Teacher extends Fragment {
     // Cho hiển thị ngày
     private PopupWindow popupWindow;
     private Button ChooseDateButton;
+    private TextView Date_View;
     private boolean isListVisible = false;
     private String selectedDate = "Default"; // Tên mặc định cho nút
+    private int selectedWeek = 0;
+
 
     public ShortsFragment_Teacher() {
         // Required empty public constructor
@@ -119,12 +136,34 @@ public class ShortsFragment_Teacher extends Fragment {
         listView = view.findViewById(R.id.listView);
         btn_Refresh = view.findViewById(R.id.btn_refresh);
         btn_QRCode = view.findViewById(R.id.btn_MakeQRCode);
+        Date_View = view.findViewById(R.id.DateListButton);
         adapter = new UserAdapter(getActivity(), new ArrayList<>());
+
 
         listView.setAdapter(adapter);
 
 
         firestore = FirebaseFirestore.getInstance();
+
+
+        CollectionReference collectionRef = firestore.collection("users");
+        collectionRef.whereEqualTo("role", "teacher")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                // Access each document here
+                                selectedDate = (String) document.get("Ngay_diemdanh");
+                                Date_View.setText(selectedDate);
+                                // Perform actions with the documents like updating or reading data
+                            }
+                        } else {
+
+                        }
+                    }
+                });
         loadStudentData();
         btn_Refresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,28 +177,47 @@ public class ShortsFragment_Teacher extends Fragment {
             public void onClick(View view) {
                 MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
 
-                try {
-                    BitMatrix bitMatrix = multiFormatWriter.encode("Ngay 10/10/2023", BarcodeFormat.QR_CODE,300,300);
 
-                    BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-                    bitmap = barcodeEncoder.createBitmap(bitMatrix);
+                    CollectionReference collectionRef = firestore.collection("users");
+                    collectionRef.whereEqualTo("role", "teacher")
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            // Access each document here
+                                            BitMatrix bitMatrix = null;
+                                            try {
+                                                bitMatrix = multiFormatWriter.encode((String) document.get("Ngay_diemdanh"), BarcodeFormat.QR_CODE,300,300);
+                                            } catch (WriterException e) {
+                                                throw new RuntimeException(e);
+                                            }
+
+                                            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                                            bitmap = barcodeEncoder.createBitmap(bitMatrix);
 
 
-                    // Lưu hình ảnh vào thư viện điện thoại
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                                == PackageManager.PERMISSION_GRANTED) {
-                            saveImageToGallery(bitmap);
-                        } else {
-                            requestPermissions(PERMISSIONS, REQUEST_CODE);
-                        }
-                    } else {
-                        saveImageToGallery(bitmap);
-                    }
+                                            // Lưu hình ảnh vào thư viện điện thoại
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                                        == PackageManager.PERMISSION_GRANTED) {
+                                                    saveImageToGallery(bitmap);
+                                                } else {
+                                                    requestPermissions(PERMISSIONS, REQUEST_CODE);
+                                                }
+                                            } else {
+                                                saveImageToGallery(bitmap);
+                                            }
+                                            // Perform actions with the documents like updating or reading data
+                                        }
+                                    } else {
 
-                } catch (WriterException e) {
-                    throw new RuntimeException(e);
-                }
+                                    }
+                                }
+                            });
+
+
             }
         });
 
@@ -190,7 +248,20 @@ public class ShortsFragment_Teacher extends Fragment {
                         // Chỉ lấy các trường dữ liệu cần thiết từ tài liệu
                         String name = documentSnapshot.getString("name");
                         String ID = documentSnapshot.getString("MSSV");
-                        Boolean xacthucObject = documentSnapshot.getBoolean("diemdanh");
+                        Boolean xacthucObject = true;
+
+                        ArrayList<Map<String, Object>> attendanceList = (ArrayList<Map<String, Object>>) documentSnapshot.get("ngay");
+                        if (attendanceList != null) {
+                            for (Map<String, Object> entry : attendanceList) {
+                                String date = (String) entry.get("date");
+                                if (date.equals(selectedDate))
+                                {
+                                    xacthucObject = (boolean) entry.get("presented");
+                                    break;
+                                }
+                            }
+                        }
+
 
                         // Kiểm tra xem xacthucObject có giá trị không
                         boolean xacthuc = xacthucObject != null && xacthucObject.booleanValue();
@@ -271,33 +342,110 @@ public class ShortsFragment_Teacher extends Fragment {
 
         // Set up the list
         ListView listView = popupView.findViewById(R.id.listView);
-        List<String> items = new ArrayList<>();
+        List<Attendance> attendanceList = new ArrayList<>();
         LocalDate dateAttendance = LocalDate.of(2023, 10, 9); // Thay thế bằng ngày bắt đầu mong muốn
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        for (int start = 1; start < 15; start ++)
+        int week = 1;
+        for (int start = 1; start <= 15; start ++)
         {
-            items.add(dateAttendance.format(formatter).toString());
+            Attendance attendance = new Attendance(week,dateAttendance.format(formatter).toString());
+            attendanceList.add(attendance);
             // Lấy ngày cách nhau 1 tuần
             dateAttendance = dateAttendance.plus(1, ChronoUnit.WEEKS);
+            week ++;
         }
 
-
-
-
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
+        WeekAdapter adapter = new WeekAdapter(getContext(), (ArrayList<Attendance>) attendanceList);
         listView.setAdapter(adapter);
 
         // Set item click listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                loadStudentData();
                 // Handle item click here
                 // For example, you can close the PopupWindow and do something with the selected item
-                selectedDate = items.get(position);
+                selectedDate = attendanceList.get(position).getDate();
+                selectedWeek = attendanceList.get(position).getWeek();
+
                 Update_Date_Attention(firestore,selectedDate);
+
+                Map<String, Object> entry = new HashMap<>();
+                entry.put("date", selectedDate);
+                entry.put("isAttendence", false);
+
+                FireStore_Help.Update_All_Documment_Map(firestore,entry,"Ngay_isAttendance","ngay");
+                //FireStore_Help.Update_All_Documment_Boolean(firestore,"Ngay_isAttendance",selectedDate,false);
+
+                String week = "week";
+                String date = "date";
+                String presented = "presented";
+                String isAttendence = "isAttendance";
+
+
+                Attendance attendance = new Attendance("2023-11-15",true,true);
+
+                Map<String, Object> ngay_attendance2 = new HashMap<>();
+                attendance = new Attendance(selectedWeek,selectedDate,true,true);
+                ngay_attendance2.put(week,selectedWeek);
+                ngay_attendance2.put(date, attendance.getDate());
+                ngay_attendance2.put(presented, attendance.isPresent());
+
+
+                FirebaseFirestore finalDb = db;
+                db.collection("users").get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    WriteBatch batch = finalDb.batch();
+                                    boolean isHave = false;
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        ArrayList<Map<String, Object>> attendanceList = (ArrayList<Map<String, Object>>) document.get("ngay");
+                                        if (attendanceList != null) {
+                                            for (Map<String, Object> data : attendanceList) {
+                                                String date = (String) data.get("date");
+                                                if (date.equals(selectedDate))
+                                                {
+                                                    isHave = true;
+                                                }
+                                            }
+
+                                        }
+                                        if (isHave)
+                                        {
+
+                                        }
+                                        else {
+                                            DocumentReference docRef = finalDb.collection("users").document(document.getId());
+                                            batch.update(docRef, "ngay", FieldValue.arrayUnion(ngay_attendance2));
+                                        }
+                                    }
+
+                                    batch.commit()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    // Cập nhật cho tất cả document thành công
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    // Xử lý khi cập nhật thất bại
+                                                }
+                                            });
+                                } else {
+                                    // Xử lý khi không thể lấy được danh sách documents
+                                }
+                            }
+                        });
+
+
                 updateButtonLabel(ChooseDateButton,selectedDate);
+
                 hidePopupWindow();
             }
         });

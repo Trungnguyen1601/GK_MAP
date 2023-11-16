@@ -23,19 +23,28 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.example.project_test1.R;
+import com.example.project_test1.models.Attendance;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 import com.google.zxing.Result;
 
+import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ScanQRActivity extends AppCompatActivity {
 
@@ -78,49 +87,72 @@ public class ScanQRActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
+                            CollectionReference collectionRef = db.collection("users");
+                            collectionRef.whereEqualTo("account", email)
+                                    .get()
+                                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
 
-                            Toast.makeText(ScanQRActivity.this, result.getText(), Toast.LENGTH_LONG).show();
-                            if (result.getText().equals("Ngay 10/10/2023")) {
+                                                String date_dd = (String) documentSnapshot.get("Ngay_diemdanh");
+                                                Toast.makeText(ScanQRActivity.this, result.getText(), Toast.LENGTH_LONG).show();
+                                                if (result.getText().equals(date_dd)) {
+                                                    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                                                    CollectionReference collectionRef = firestore.collection("users");
 
-                                String targetName = "trung"; // Tên người dùng cần cập nhật
-                                db = FirebaseFirestore.getInstance();
-                                CollectionReference usersRef = db.collection("users");
-                                //Query query = usersRef.whereEqualTo("name", targetName);
-                                Query query = usersRef.whereEqualTo("account", email);
+                                                    collectionRef.whereEqualTo("account", email)
+                                                            .get()
+                                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                            ArrayList<Map<String, Object>> ngayDiemDanh = (ArrayList<Map<String, Object>>) document.get("ngay");
+
+                                                                            // Loop through the array to find the specific date and update its "present" value
+                                                                            for (Map<String, Object> attendence : ngayDiemDanh) {
+                                                                                String date = (String) attendence.get("date");
+                                                                                // Assuming you want to update "present" for a specific date, replace "targetDate" with your target date
+                                                                                if (date != null && date.equals(date_dd)) {
+                                                                                    attendence.put("presented", true); // Update the "presented" value
+                                                                                    break; // Break the loop once updated
+                                                                                }
+                                                                            }
+
+                                                                            // Update the modified array back to Firestore
+                                                                            document.getReference().update("ngay", ngayDiemDanh)
+                                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                        @Override
+                                                                                        public void onSuccess(Void aVoid) {
+                                                                                            // Update successful
+                                                                                        }
+                                                                                    })
+                                                                                    .addOnFailureListener(new OnFailureListener() {
+                                                                                        @Override
+                                                                                        public void onFailure(@NonNull Exception e) {
+                                                                                            // Handle failure
+                                                                                        }
+                                                                                    });
+                                                                        }
+                                                                    } else {
+                                                                        // Handle the case where task is not successful
+                                                                    }
+                                                                }
+                                                            });
 
 
-                                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                // 3. Lấy reference của tài liệu cần cập nhật
-                                                DocumentReference docRef = usersRef.document(document.getId());
-
-                                                // 4. Sử dụng phương thức update() để cập nhật thông tin
-                                                docRef.update("diemdanh", true)
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void aVoid) {
-                                                                Log.d(TAG, "Document updated successfully");
-
-                                                            }
-                                                        })
-                                                        .addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Log.w(TAG, "Error updating document", e);
-                                                            }
-                                                        });
+                                                }
                                             }
-                                        } else {
-                                            Log.w(TAG, "Error getting documents.", task.getException());
                                         }
-                                    }
-                                });
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Xử lý khi đọc từ Firestore thất bại
+                                        }
+                                    });
 
-
-                            }
                         }
                     });
 

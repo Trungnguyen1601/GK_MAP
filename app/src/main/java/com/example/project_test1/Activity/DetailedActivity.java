@@ -43,7 +43,3 @@ public class DetailedActivity extends AppCompatActivity {
         }
     }
 }
-
-
-
-//khiem

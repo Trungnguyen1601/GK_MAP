@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loginbkg"
     tools:context=".Activity.LoginActivity">
 
     <androidx.cardview.widget.CardView
@@ -41,20 +42,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/custom_round_background"
+                android:background="@drawable/custom_edittext"
                 android:drawableStart="@drawable/baseline_email_24"
                 android:drawablePadding="8dp"
                 android:padding="8dp"
-                android:hint="Email"
+                android:hint="email@example.com"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                />
 
             <EditText
                 android:id="@+id/loginPassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/custom_round_background"
+                android:background="@drawable/custom_edittext"
                 android:drawableStart="@drawable/ic_lock_24"
                 android:drawablePadding="8dp"
                 android:padding="8dp"
@@ -76,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:text="New User? Register Here"
+                android:textColor="@color/purple"
                 android:textSize="18sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

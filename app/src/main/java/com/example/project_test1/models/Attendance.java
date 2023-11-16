@@ -4,6 +4,7 @@ public class Attendance {
     private String date;
     private boolean isPresent;
     private boolean isAttendanced;
+    private String locationCheck;
 
     public Attendance() {
         // Required empty public constructor for Firestore
@@ -42,5 +43,13 @@ public class Attendance {
 
     public void setAttendanced(boolean attendanced) {
         isAttendanced = attendanced;
+    }
+
+    public String getLocationCheck() {
+        return locationCheck;
+    }
+
+    public void setLocationCheck(String locationCheck) {
+        this.locationCheck = locationCheck;
     }
 }

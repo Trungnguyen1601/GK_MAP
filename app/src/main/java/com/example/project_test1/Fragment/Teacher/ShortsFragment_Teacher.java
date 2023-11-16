@@ -137,12 +137,9 @@ public class ShortsFragment_Teacher extends Fragment {
         btn_Refresh = view.findViewById(R.id.btn_refresh);
         btn_QRCode = view.findViewById(R.id.btn_MakeQRCode);
         Date_View = view.findViewById(R.id.DateListButton);
+
         adapter = new UserAdapter(getActivity(), new ArrayList<>());
-
-
         listView.setAdapter(adapter);
-
-
         firestore = FirebaseFirestore.getInstance();
 
 

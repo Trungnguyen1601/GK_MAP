@@ -47,7 +47,7 @@ import com.google.zxing.Result;
 import org.jetbrains.annotations.NotNull;
 
 public class ScanQRActivity extends AppCompatActivity {
-    // Variables for getting current locaion
+    // Variables for getting current location
     private String locationIsNear = null;
     private String locationUser = null;
     private static final int PERMISSION_REQUEST_CODE = 1;
@@ -69,7 +69,6 @@ public class ScanQRActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scan_qractivity);
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this,scannerView);
-        askPermission();
 
         // Check for location permissions
         if (checkLocationPermissions()) {
@@ -86,68 +85,65 @@ public class ScanQRActivity extends AppCompatActivity {
             Log.d(TAG, "Email là "+ email);
             // Sử dụng dữ liệu ở đây
         }
-        if (CameraPermission) {
 
-            scannerView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        scannerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Check if the user is near before starting the QR code scan
+                Log.d(TAG, "Location is near: " + locationIsNear);
 
+
+                if (locationIsNear != null && locationIsNear.equals("Yes")) {
                     mCodeScanner.startPreview();
-
+                } else {
+                    Toast.makeText(ScanQRActivity.this, "User is not near the designated location", Toast.LENGTH_LONG).show();
                 }
-            });
+            }
+        });
 
-            mCodeScanner.setDecodeCallback(new DecodeCallback() {
-                @Override
-                public void onDecoded(@NonNull @NotNull Result result) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(ScanQRActivity.this, result.getText(), Toast.LENGTH_LONG).show();
-                            if (result.getText().equals("Ngay 10/10/2023")) {
+        mCodeScanner.setDecodeCallback(new DecodeCallback() {
+            @Override
+            public void onDecoded(@NonNull @NotNull Result result) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(ScanQRActivity.this, result.getText(), Toast.LENGTH_LONG).show();
+                        if (result.getText().equals("Ngay 10/10/2023")) {
+                            String targetName = "trung"; // Tên người dùng cần cập nhật
+                            db = FirebaseFirestore.getInstance();
+                            CollectionReference usersRef = db.collection("users");
+                            Query query = usersRef.whereEqualTo("account", email);
 
-                                String targetName = "trung"; // Tên người dùng cần cập nhật
-                                db = FirebaseFirestore.getInstance();
-                                CollectionReference usersRef = db.collection("users");
-                                //Query query = usersRef.whereEqualTo("name", targetName);
-                                Query query = usersRef.whereEqualTo("account", email);
-
-                                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                // 3. Lấy reference của tài liệu cần cập nhật
-                                                DocumentReference docRef = usersRef.document(document.getId());
-
-                                                // 4. Sử dụng phương thức update() để cập nhật thông tin
-                                                docRef.update("diemdanh", true)
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void aVoid) {
-                                                                Log.d(TAG, "Document updated successfully");
-
-                                                            }
-                                                        })
-                                                        .addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Log.w(TAG, "Error updating document", e);
-                                                            }
-                                                        });
-                                            }
-                                        } else {
-                                            Log.w(TAG, "Error getting documents.", task.getException());
+                            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            DocumentReference docRef = usersRef.document(document.getId());
+                                            docRef.update("diemdanh", true)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d(TAG, "Document updated successfully");
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.w(TAG, "Error updating document", e);
+                                                        }
+                                                    });
                                         }
+                                    } else {
+                                        Log.w(TAG, "Error getting documents.", task.getException());
                                     }
-                                });
-                            }
+                                }
+                            });
                         }
-                    });
-
-                }
-            });
-        }
+                    }
+                });
+            }
+        });
     }
 
     // Function for getting current location
@@ -168,19 +164,15 @@ public class ScanQRActivity extends AppCompatActivity {
     private void startLocationUpdates() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        // Define a listener that responds to location updates
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                // Handle location updates
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
 
                 locationUser = String.valueOf(latitude)  + ", " + String.valueOf(longitude);
 
-//                locationUser = latitude + "" + ", " + longitude + "";
                 Log.d(TAG, "User is at: " + locationUser);
-                // Use latitude and longitude as needed
                 updateLocationInfo(latitude, longitude);
 
                 checkLocation(latitude, longitude);
@@ -200,30 +192,30 @@ public class ScanQRActivity extends AppCompatActivity {
             }
         };
 
-        // Check for network provider availability
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            // Use the network provider for location updates
             try {
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, locationListener);
+                askPermission();
             } catch (SecurityException e) {
                 e.printStackTrace();
             }
         } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            // If the network provider is not available, use the GPS provider
             try {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, locationListener);
+                askPermission();
             } catch (SecurityException e) {
                 e.printStackTrace();
             }
         } else {
-            // Handle the case when neither network nor GPS providers are available
             Toast.makeText(this, "Location providers are not available", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void updateLocationInfo(double latitude, double longitude) {
         // Update your UI or perform any action with the new location information
         String locationInfo = "Latitude: " + latitude + "\nLongitude: " + longitude;
     }
+
     private boolean checkPermissionGranted(int[] grantResults) {
         for (int result : grantResults) {
             if (result != PackageManager.PERMISSION_GRANTED) {
@@ -233,45 +225,6 @@ public class ScanQRActivity extends AppCompatActivity {
         return true;
     }
 
-    public void checkLocation(double xPosition, double yPosition) {
-        double radius = 10.0;
-        double distance = sqrt(pow(xPosition - 21.004010169142187 ,2) + pow(yPosition - 105.84266667946878 ,2) );
-
-        Log.d(TAG, "radius " + radius);
-        Log.d(TAG, "distance " + distance);
-        if (distance <= radius) {
-            locationIsNear = "Yes";
-            Toast.makeText(this, "User is near hear", Toast.LENGTH_LONG).show();
-//            mDatabaseReference.child("locationIsNear").setValue("Yes");
-        }
-        else {
-            locationIsNear = "No";
-            Toast.makeText(this, "User is not near hear", Toast.LENGTH_LONG).show();
-//            mDatabaseReference.child("locationIsNear").setValue("No");
-        }
-    }
-
-    // Functions for scanning QR code
-    private void askPermission(){
-
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ){
-
-                ActivityCompat.requestPermissions(ScanQRActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERM);
-
-
-            }else {
-
-                mCodeScanner.startPreview();
-                CameraPermission = true;
-            }
-
-        }
-
-
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
         // Location
@@ -279,10 +232,8 @@ public class ScanQRActivity extends AppCompatActivity {
 
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (checkPermissionGranted(grantResults)) {
-                // Permission granted, start location updates
                 startLocationUpdates();
             } else {
-                // Permission denied, show a message or handle it accordingly
                 Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
             }
         }
@@ -290,68 +241,42 @@ public class ScanQRActivity extends AppCompatActivity {
         // QR code
         if (requestCode == CAMERA_PERM){
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-
                 mCodeScanner.startPreview();
                 CameraPermission = true;
-            }else {
-
+            } else {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)){
-
-                    new AlertDialog.Builder(this)
-                            .setTitle("Permission")
-                            .setMessage("Please provide the camera permission for using all the features of the app")
-                            .setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                    ActivityCompat.requestPermissions(ScanQRActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERM);
-
-                                }
-                            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                    dialog.dismiss();
-
-                                }
-                            }).create().show();
-
-                }else {
-
-                    new AlertDialog.Builder(this)
-                            .setTitle("Permission")
-                            .setMessage("You have denied some permission. Allow all permission at [Settings] > [Permissions]")
-                            .setPositiveButton("Settings", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                    dialog.dismiss();
-                                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                            Uri.fromParts("package",getPackageName(),null));
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    finish();
-
-
-                                }
-                            }).setNegativeButton("No, Exit app", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                    dialog.dismiss();
-                                    finish();
-
-                                }
-                            }).create().show();
-
-
-
+                    showCameraPermissionDialog();
+                } else {
+                    showSettingsPermissionDialog();
                 }
-
             }
-
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    public void checkLocation(double xPosition, double yPosition) {
+        double allowedRadius = 0.00001;
+        double distance = sqrt(pow(xPosition - 21.004010169142187 , 2) + pow(yPosition - 105.84266667946878 , 2));
+
+        Log.d(TAG, "allowedRadius " + allowedRadius);
+        Log.d(TAG, "distance " + distance);
+        if (distance <= allowedRadius) {
+            locationIsNear = "Yes";
+            Toast.makeText(this, "User is near here", Toast.LENGTH_LONG).show();
+        } else {
+            locationIsNear = "No";
+            Toast.makeText(this, "User is not near here", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void askPermission(){
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP){
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ){
+                ActivityCompat.requestPermissions(ScanQRActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERM);
+            } else {
+                mCodeScanner.startPreview();
+                CameraPermission = true;
+            }
+        }
     }
 
     @Override
@@ -359,7 +284,46 @@ public class ScanQRActivity extends AppCompatActivity {
         if (CameraPermission){
             mCodeScanner.releaseResources();
         }
-
         super.onPause();
+    }
+
+    private void showCameraPermissionDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Permission")
+                .setMessage("Please provide the camera permission for using all the features of the app")
+                .setPositiveButton("Proceed", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.requestPermissions(ScanQRActivity.this,new String[]{Manifest.permission.CAMERA},CAMERA_PERM);
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create().show();
+    }
+
+    private void showSettingsPermissionDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Permission")
+                .setMessage("You have denied some permission. Allow all permission at [Settings] > [Permissions]")
+                .setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                Uri.fromParts("package",getPackageName(),null));
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).setNegativeButton("No, Exit app", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                }).create().show();
     }
 }

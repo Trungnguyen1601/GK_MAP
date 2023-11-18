@@ -38,11 +38,16 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.Result;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -92,7 +97,6 @@ public class ScanQRActivity extends AppCompatActivity {
                 // Check if the user is near before starting the QR code scan
                 Log.d(TAG, "Location is near: " + locationIsNear);
 
-
                 if (locationIsNear != null && locationIsNear.equals("Yes")) {
                     mCodeScanner.startPreview();
                 } else {
@@ -101,49 +105,71 @@ public class ScanQRActivity extends AppCompatActivity {
             }
         });
 
-        mCodeScanner.setDecodeCallback(new DecodeCallback() {
-            @Override
-            public void onDecoded(@NonNull @NotNull Result result) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(ScanQRActivity.this, result.getText(), Toast.LENGTH_LONG).show();
-                        if (result.getText().equals("Ngay 10/10/2023")) {
-                            String targetName = "trung"; // Tên người dùng cần cập nhật
-                            db = FirebaseFirestore.getInstance();
-                            CollectionReference usersRef = db.collection("users");
-                            Query query = usersRef.whereEqualTo("account", email);
+        mCodeScanner.setDecodeCallback(result -> {
+            runOnUiThread(() -> {
+                CollectionReference collectionRef = db.collection("users");
+                collectionRef.whereEqualTo("account", email)
+                        .get()
+                        .addOnSuccessListener(queryDocumentSnapshots -> handleFirestoreSuccess(queryDocumentSnapshots, result))
+                        .addOnFailureListener(e -> handleFirestoreFailure(e));
+            });
+        });
 
-                            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
-                                            DocumentReference docRef = usersRef.document(document.getId());
-                                            docRef.update("diemdanh", true)
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            Log.d(TAG, "Document updated successfully");
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Log.w(TAG, "Error updating document", e);
-                                                        }
-                                                    });
-                                        }
-                                    } else {
-                                        Log.w(TAG, "Error getting documents.", task.getException());
-                                    }
-                                }
-                            });
+    }
+
+    // Function for decoded QR
+    private void handleFirestoreSuccess(QuerySnapshot queryDocumentSnapshots, Result result) {
+        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+            String date_dd = (String) documentSnapshot.get("Ngay_diemdanh");
+            Toast.makeText(ScanQRActivity.this, result.getText(), Toast.LENGTH_LONG).show();
+
+            if (result.getText().equals(date_dd)) {
+                updateFirestoreAttendance(documentSnapshot);
+            }
+        }
+    }
+
+    private void updateFirestoreAttendance(DocumentSnapshot documentSnapshot) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        CollectionReference collectionRef = firestore.collection("users");
+
+        collectionRef.whereEqualTo("account", email)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            ArrayList<Map<String, Object>> ngayDiemDanh = (ArrayList<Map<String, Object>>) document.get("ngay");
+                            updateAttendanceArray(document, ngayDiemDanh);
                         }
+                    } else {
+                        // Handle the case where task is not successful
                     }
                 });
+    }
+
+    private void updateAttendanceArray(QueryDocumentSnapshot document, ArrayList<Map<String, Object>> ngayDiemDanh) {
+        String date_dd = (String) document.get("Ngay_diemdanh");
+
+        for (Map<String, Object> attendance : ngayDiemDanh) {
+            String date = (String) attendance.get("date");
+
+            if (date != null && date.equals(date_dd)) {
+                attendance.put("presented", true);
+                break;
             }
-        });
+        }
+
+        document.getReference().update("ngay", ngayDiemDanh)
+                .addOnSuccessListener(aVoid -> {
+                    // Update successful
+                })
+                .addOnFailureListener(e -> {
+                    // Handle failure
+                });
+    }
+
+    private void handleFirestoreFailure(Exception e) {
+        // Handle the failure to read from Firestore
     }
 
     // Function for getting current location

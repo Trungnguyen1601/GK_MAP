@@ -99,21 +99,22 @@ public class ScanQRActivity extends AppCompatActivity {
 
                 if (locationIsNear != null && locationIsNear.equals("Yes")) {
                     mCodeScanner.startPreview();
+                    mCodeScanner.setDecodeCallback(result -> {
+                        runOnUiThread(() -> {
+                            CollectionReference collectionRef = db.collection("users");
+                            collectionRef.whereEqualTo("account", email)
+                                    .get()
+                                    .addOnSuccessListener(queryDocumentSnapshots -> handleFirestoreSuccess(queryDocumentSnapshots, result))
+                                    .addOnFailureListener(e -> handleFirestoreFailure(e));
+                        });
+                    });
                 } else {
                     Toast.makeText(ScanQRActivity.this, "User is not near the designated location", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        mCodeScanner.setDecodeCallback(result -> {
-            runOnUiThread(() -> {
-                CollectionReference collectionRef = db.collection("users");
-                collectionRef.whereEqualTo("account", email)
-                        .get()
-                        .addOnSuccessListener(queryDocumentSnapshots -> handleFirestoreSuccess(queryDocumentSnapshots, result))
-                        .addOnFailureListener(e -> handleFirestoreFailure(e));
-            });
-        });
+
 
     }
 
@@ -280,7 +281,7 @@ public class ScanQRActivity extends AppCompatActivity {
     }
 
     public void checkLocation(double xPosition, double yPosition) {
-        double allowedRadius = 0.00001;
+        double allowedRadius = 0.001;
         double distance = sqrt(pow(xPosition - 21.004010169142187 , 2) + pow(yPosition - 105.84266667946878 , 2));
 
         Log.d(TAG, "allowedRadius " + allowedRadius);

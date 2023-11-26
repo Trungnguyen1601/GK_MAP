@@ -55,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        preferenceManager = new PreferenceManager(getApplicationContext());
         //
         firebaseAuth = FirebaseAuth.getInstance();
         signupName = findViewById(R.id.inputName);
@@ -226,8 +227,10 @@ public class RegisterActivity extends AppCompatActivity {
         user.put(Constants.KEY_EMAIL,signupEmail.getText().toString());
         user.put(Constants.KEY_CLASS,signupClass.getText().toString());
         user.put(Constants.KEY_MSSV,signupMSSV.getText().toString());
+        user.put(Constants.KEY_ROLE,"student");
         user.put(Constants.KEY_PERMISSION,false);
         user.put(Constants.KEY_IMAGE,encodeImage);
+
         firebaseAuth.createUserWithEmailAndPassword(signupEmail.getText().toString(),signupPassword.getText().toString()).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {

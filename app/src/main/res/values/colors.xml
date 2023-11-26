@@ -18,4 +18,6 @@
     <color name="icon_background">#20FFFFFF</color>
     <color name="error">#800020</color>
     <color name="received_message_background">#090D16</color>
+    <color name="divider_color">#4E75C2</color> <!-- Thay đổi mã màu tùy theo yêu cầu -->
+
 </resources>

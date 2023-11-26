@@ -79,10 +79,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create a short"
-            android:textColor="@color/lavender"
             android:layout_marginLeft="30dp"
-            android:textSize="16sp"/>
+            android:text="Accept Permission"
+            android:textColor="@color/lavender"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -105,10 +105,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Go live"
-            android:textColor="@color/lavender"
             android:layout_marginLeft="30dp"
-            android:textSize="16sp"/>
+            android:text="Summarize "
+            android:textColor="@color/lavender"
+            android:textSize="16sp" />
 
     </LinearLayout>
 

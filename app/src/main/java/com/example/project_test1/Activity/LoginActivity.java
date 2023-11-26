@@ -72,9 +72,9 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                                String className = (String) document.get("role");
-                                Boolean permission = (Boolean) document.get("permission");
-                                if (className.equals("student") && Boolean.TRUE.equals(permission))
+                                String className = (String) document.getString("role");
+                                Boolean permission = (Boolean) document.getBoolean("permission");
+                                if (className.equals("student") && permission)
                                 {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity_Student.class);
                                     intent.putExtra("email", user.getEmail());

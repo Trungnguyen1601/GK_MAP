@@ -3,12 +3,15 @@ package com.example.project_test1.models;
 public class User {
     private String email;
     private String password;
+    private String MSSV;
 
     private String Lop;
     private String name;
     private String ID;
     private boolean xacthuc;
     private String image_URL;
+    private Boolean permission;
+    private String Image;
 
     public User() {}
 
@@ -39,8 +42,32 @@ public class User {
         this.image_URL = image_URL;
     }
 
+    public User(String email, String password, String MSSV,String lop, String name, String ID, boolean xacthuc, String image_URL, Boolean permission, String image) {
+        this.email = email;
+        this.MSSV = MSSV;
+        this.password = password;
+        Lop = lop;
+        this.name = name;
+        this.ID = ID;
+        this.xacthuc = xacthuc;
+        this.image_URL = image_URL;
+        this.permission = permission;
+        Image = image;
+    }
+
+    public User(String MSSV, String lop, String name, String image) {
+        this.MSSV = MSSV;
+        Lop = lop;
+        this.name = name;
+        Image = image;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getID() {
@@ -85,5 +112,29 @@ public class User {
 
     public void setImage_URL(String image_URL) {
         this.image_URL = image_URL;
+    }
+
+    public Boolean getPermission() {
+        return permission;
+    }
+
+    public void setPermission(Boolean permission) {
+        this.permission = permission;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
+    }
+
+    public String getMSSV() {
+        return MSSV;
+    }
+
+    public void setMSSV(String MSSV) {
+        this.MSSV = MSSV;
     }
 }

@@ -171,7 +171,10 @@ public class MainActivity_Teacher extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
-                Toast.makeText(MainActivity_Teacher.this,"Create a short is Clicked",Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), AcceptPermissionActivity.class);
+                startActivity(intent);
+                Toast.makeText(MainActivity_Teacher.this,"Accept permission is clicked",Toast.LENGTH_SHORT).show();
 
             }
         });

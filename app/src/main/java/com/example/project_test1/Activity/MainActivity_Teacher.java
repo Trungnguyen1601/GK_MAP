@@ -1,14 +1,18 @@
 package com.example.project_test1.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -53,11 +57,52 @@ public class MainActivity_Teacher extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+
         if (savedInstanceState == null)
         {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout,new HomeFragment_Teacher()).commit();
-            navigationView.setCheckedItem(R.id.nav_view);
+            //navigationView.setCheckedItem(R.id.nav_view);
         }
+        navigationView.setClickable(true);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                boolean check = true;
+                if (menuItem.getItemId() == R.id.nav_home)
+                {
+                    Log.d("Check Click","OK");
+                    Toast.makeText(getApplicationContext(),"Home",Toast.LENGTH_SHORT).show();
+                }
+                else if (menuItem.getItemId() == R.id.nav_settings)
+                {
+                    Toast.makeText(getApplicationContext(),"Settings",Toast.LENGTH_SHORT).show();
+
+                }
+                else if (menuItem.getItemId() == R.id.nav_share)
+                {
+                    Toast.makeText(getApplicationContext(),"Share",Toast.LENGTH_SHORT).show();
+
+                }
+                else if (menuItem.getItemId() == R.id.nav_about)
+                {
+                    Toast.makeText(getApplicationContext(),"About us",Toast.LENGTH_SHORT).show();
+
+                }
+                else if (menuItem.getItemId() == R.id.nav_logout)
+                {
+                    Toast.makeText(getApplicationContext(),"Log out",Toast.LENGTH_SHORT).show();
+
+                }
+                else
+                {
+
+                }
+                return true;
+            }
+        });
+
+
         replaceFragment(new HomeFragment_Teacher());
 
         bottomNavigationView.setBackground(null);
@@ -113,7 +158,10 @@ public class MainActivity_Teacher extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
-                Toast.makeText(MainActivity_Teacher.this,"Upload a Video is clicked",Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(),Mark_Activity.class);
+                startActivity(intent);
+                Toast.makeText(MainActivity_Teacher.this,"Upload Mark is clicked",Toast.LENGTH_SHORT).show();
 
             }
         });

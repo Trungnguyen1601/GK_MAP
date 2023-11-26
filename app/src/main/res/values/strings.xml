@@ -5,7 +5,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login">Login</string>
-    <string name="email">email</string>
+    <string name="email">Email</string>
     <string name="password">password</string>
     <string name="register">Register</string>
     <string name="click_to_login">Click to login</string>
@@ -94,4 +94,12 @@ Add the maggi masala on to it
 \nMaggi is ready!</string>
     <string name="sv_class">Lập trình ứng dụng di động</string>
     <string name="school">Trường Điện - Điện tử</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="name">Name</string>
+    <string name="add_image">Add Image</string>
+    <string name="resgister_student">Resgister Student</string>
+    <string name="sign_in">Sign In</string>
+    <string name="mssv">MSSV</string>
+    <string name="accept">Accept</string>
 </resources>

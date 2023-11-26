@@ -2,14 +2,32 @@ package com.example.project_test1.Fragment.Student;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.project_test1.Adapter.AttendanceAdapter;
 import com.example.project_test1.R;
+import com.example.project_test1.databinding.FragmentHomeStudentBinding;
+import com.example.project_test1.models.Attendance;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import java.util.Map;
+import java.util.List;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +44,17 @@ public class HomeFragment_Student extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    FragmentHomeStudentBinding binding;
+    private ListView listView;
+
+    FirebaseUser user;
+
+    private AttendanceAdapter adapter;
+    private FirebaseFirestore db;
+
+    Button refreshBtn;
+
 
     public HomeFragment_Student() {
         // Required empty public constructor
@@ -61,15 +90,74 @@ public class HomeFragment_Student extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_student, container, false);
+        refreshBtn = view.findViewById(R.id.refreshButton);
+        binding = FragmentHomeStudentBinding.inflate(inflater, container, false);
+        adapter = new AttendanceAdapter(getActivity(), new ArrayList<>());
 
-        Bundle args = getArguments();
-        if (args != null) {
-            String data = args.getString("key");
-            TextView textView = view.findViewById(R.id.text_view);
-            textView.setText(data);
-        }
-        return view;
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        binding.listDate.setAdapter(adapter);
+        binding.listDate.setClickable(true);
+
+        db = FirebaseFirestore.getInstance();
+
+        loadAttendance();
+
+        binding.refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Click", Toast.LENGTH_SHORT).show();
+                loadAttendance();
+            }
+        });
+
+        return binding.getRoot();
+
+    }
+
+    private void loadAttendance() {
+        db.collection("users")
+                .whereEqualTo("account",user.getEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            ArrayList<Attendance> attendances = new ArrayList<>();
+                            for(QueryDocumentSnapshot document : task.getResult()) {
+
+                                if (document.exists()) {
+                                    List<Map<String, Object>> attendArray = (List<Map<String, Object>>) document.get("ngay");
+
+                                    if (attendArray != null) {
+                                        for (Map<String, Object> attend : attendArray) {
+                                            String date = (String) attend.get("date");
+                                            Log.d("date", date);
+                                            int week = ((Long) attend.get("week")).intValue();
+                                            Boolean isAttendance = (Boolean) attend.get("presented");
+
+                                            Attendance a = new Attendance(week, date, isAttendance);
+                                            attendances.add(a);
+                                        }
+                                    }
+                                }
+                            }
+
+                            adapter.clear();
+                            adapter.addAll(attendances);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    // Xử lý lỗi
+                });
+    }
+    // Phương thức để cập nhật UI khi có sự thay đổi
+    private void updateUI() {
+        // Cập nhật UI của bạn ở đây
+        // Ví dụ: Hiển thị thông báo, cập nhật ListView, v.v.
+        adapter.notifyDataSetChanged();
     }
 }

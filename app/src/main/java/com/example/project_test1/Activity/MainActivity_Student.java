@@ -1,5 +1,6 @@
 package com.example.project_test1.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -60,6 +62,38 @@ public class MainActivity_Student extends AppCompatActivity {
         Intent intent = getIntent();
         String data = intent.getStringExtra("email");
 
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                boolean check = true;
+                if (menuItem.getItemId() == R.id.nav_home)
+                {
+                    Toast.makeText(getApplicationContext(),"Home",Toast.LENGTH_SHORT).show();
+                    check = true;
+                }
+                if (menuItem.getItemId() == R.id.nav_settings)
+                {
+                    Toast.makeText(getApplicationContext(),"Settings",Toast.LENGTH_SHORT).show();
+                    check = true;
+                }
+                if (menuItem.getItemId() == R.id.nav_share)
+                {
+                    Toast.makeText(getApplicationContext(),"Share",Toast.LENGTH_SHORT).show();
+                    check = true;
+                }
+                if (menuItem.getItemId() == R.id.nav_about)
+                {
+                    Toast.makeText(getApplicationContext(),"About us",Toast.LENGTH_SHORT).show();
+                    check = true;
+                }
+                if (menuItem.getItemId() == R.id.nav_logout)
+                {
+                    Toast.makeText(getApplicationContext(),"Log out",Toast.LENGTH_SHORT).show();
+                    check = true;
+                }
+                return check;
+            }
+        });
 
         if (savedInstanceState == null)
         {

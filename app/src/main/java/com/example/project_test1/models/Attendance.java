@@ -25,7 +25,11 @@ public class Attendance {
         this.isPresent = isPresent;
         this.isAttendanced = isAttendanced;
     }
-
+    public Attendance(int week, String date, boolean isAttendanced) {
+        this.week = week;
+        this.date = date;
+        this.isAttendanced = isAttendanced;
+    }
     public Attendance(int week,String date, boolean isPresent, boolean isAttendanced) {
         this.date = date;
         this.isPresent = isPresent;

@@ -73,7 +73,8 @@ public class LoginActivity extends AppCompatActivity {
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                 String className = (String) document.get("role");
-                                if (className.equals("student"))
+                                Boolean permission = (Boolean) document.get("permission");
+                                if (className.equals("student") && Boolean.TRUE.equals(permission))
                                 {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity_Student.class);
                                     intent.putExtra("email", user.getEmail());
@@ -86,6 +87,10 @@ public class LoginActivity extends AppCompatActivity {
                                     intent.putExtra("email", user.getEmail());
                                     startActivity(intent);
 
+                                }
+                                if (!permission)
+                                {
+                                   showToast("Permission denied");
                                 }
                                 // Đây là tên lớp (className) của người dùng có tên (name) là "thanh"
                             }
@@ -140,7 +145,8 @@ public class LoginActivity extends AppCompatActivity {
                                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                                             String className = (String) document.get("role");
-                                            if (className.equals("student"))
+                                            Boolean permission = (Boolean) document.get("permission");
+                                            if (className.equals("student") && permission)
                                             {
                                                 Intent intent = new Intent(LoginActivity.this, MainActivity_Student.class);
                                                 intent.putExtra("email", userEmail);
@@ -153,6 +159,10 @@ public class LoginActivity extends AppCompatActivity {
                                                 intent.putExtra("email", userEmail);
                                                 startActivity(intent);
 
+                                            }
+                                            if(!permission)
+                                            {
+                                                showToast("Permission dined");
                                             }
                                             // Đây là tên lớp (className) của người dùng có tên (name) là "thanh"
                                         }
@@ -169,6 +179,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void showToast(String message)
+    {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

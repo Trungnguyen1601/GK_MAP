@@ -12,8 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.project_test1.Activity.DetailedActivity;
-import com.example.project_test1.Helper.ListAdapter;
-import com.example.project_test1.Helper.ListData;
+import com.example.project_test1.Adapter.ListAdapter;
 import com.example.project_test1.databinding.FragmentHomeTeacherBinding;
 import com.example.project_test1.models.User;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,8 +39,8 @@ public class HomeFragment_Teacher extends Fragment {
     // Project
     FragmentHomeTeacherBinding binding;
     ListAdapter listAdapter;
-    ArrayList<ListData> dataArrayList = new ArrayList<>();
-    ListData listData;
+//    ArrayList<ListData> dataArrayList = new ArrayList<>();
+//    ListData listData;
 
     private ListView listView;
     private ListAdapter adapter;
@@ -90,11 +89,7 @@ public class HomeFragment_Teacher extends Fragment {
 
         firestore = FirebaseFirestore.getInstance();
 
-
-
         loadStudentData();
-
-
         binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 // Lấy dữ liệu của item được chọn từ Adapter

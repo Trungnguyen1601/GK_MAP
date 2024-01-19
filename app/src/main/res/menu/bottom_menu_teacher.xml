@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/home"
+        android:title="Class"
+        android:icon="@drawable/icon_classroom"
+        />
+
+    <item
+        android:id="@+id/shorts"
+        android:title="Attendance"
+        android:icon="@drawable/pen"
+        />
+
+    <item
+        android:title=""/>
+
+    <item
+        android:id="@+id/subscriptions"
+        android:title="Statistics"
+        android:icon="@drawable/analytics" />
+    <item
+        android:id="@+id/library"
+        android:title="Settings"
+        android:icon="@drawable/icon_setting" />
+
+</menu>

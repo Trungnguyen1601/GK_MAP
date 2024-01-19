@@ -39,7 +39,7 @@ public class LibraryFragment_Student extends Fragment {
     private String mParam2;
 
 
-    Button btnLogOut;
+    TextView btnLogOut;
     TextView txtUser;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
@@ -82,8 +82,8 @@ public class LibraryFragment_Student extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_library_student, container, false);
         firebaseAuth = FirebaseAuth.getInstance();
-        btnLogOut = (Button) view.findViewById(R.id.btnLogOut);
-        txtUser = (TextView) view.findViewById(R.id.txtUser);
+        btnLogOut = (TextView) view.findViewById(R.id.btn_LogOut);
+//        txtUser = (TextView) view.findViewById(R.id.txtUser);
         user = firebaseAuth.getCurrentUser();
 
         if (user == null ) {
@@ -92,7 +92,7 @@ public class LibraryFragment_Student extends Fragment {
             getActivity().finish();
         }
         else {
-            txtUser.setText(user.getEmail());
+//            txtUser.setText(user.getEmail());
         }
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {

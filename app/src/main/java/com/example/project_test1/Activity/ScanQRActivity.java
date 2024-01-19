@@ -114,17 +114,6 @@ public class ScanQRActivity extends AppCompatActivity {
                 }
             }
         });
-
-//        mCodeScanner.setDecodeCallback(result -> {
-//            runOnUiThread(() -> {
-//                CollectionReference collectionRef = db.collection("users");
-//                collectionRef.whereEqualTo("account", email)
-//                        .get()
-//                        .addOnSuccessListener(queryDocumentSnapshots -> handleFirestoreSuccess(queryDocumentSnapshots, result))
-//                        .addOnFailureListener(e -> handleFirestoreFailure(e));
-//            });
-//        });
-
     }
 
     // Function for decoded QR

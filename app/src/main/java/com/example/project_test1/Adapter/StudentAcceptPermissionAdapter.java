@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project_test1.Activity.DetailedActivity;
 import com.example.project_test1.R;
 import com.example.project_test1.models.User;
 
@@ -48,7 +49,7 @@ public class StudentAcceptPermissionAdapter extends RecyclerView.Adapter<Student
             Animation animation = AnimationUtils.loadAnimation(v.getContext(), R.anim.item_click_animation);
             holder.itemView.startAnimation(animation);
             //Toast.makeText(v.getContext(),"Hello Trung" + user.getName(),Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(v.getContext(),DetailedActivity.class)
+            Intent intent = new Intent(v.getContext(), DetailedActivity.class);
 
             // Xử lý sự kiện khi người dùng nhấn vào sinh viên
             // Ở đây, bạn có thể hiển thị thông tin chi tiết của sinh viên nếu cần

@@ -37,27 +37,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login_page);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        loginEmail = findViewById(R.id.loginEmail);
-        loginPassword = findViewById(R.id.loginPassword);
-        btnLogin = findViewById(R.id.btnLogIn);
-        registerRedirectText = findViewById(R.id.txtRegister);
-
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        CollectionReference collectionRef = db.collection("Dia_chi");
-//
-//        collectionRef.get()
-//                .addOnSuccessListener(queryDocumentSnapshots -> {
-//                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-//                        // Thêm trường mới cho mỗi tài liệu
-//                        document.getReference().update("Ngay_diemdanh", "diemdanh1");
-//                    }
-//                })
-//                .addOnFailureListener(e -> {
-//                    // Xử lý lỗi
-//                });
+        loginEmail = findViewById(R.id.editEmail);
+        loginPassword = findViewById(R.id.editPassword);
+        btnLogin = findViewById(R.id.buttonLogin);
+        registerRedirectText = findViewById(R.id.signUpWithEmail);
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override

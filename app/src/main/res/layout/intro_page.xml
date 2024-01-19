@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_color">
+
+    <RelativeLayout
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_page">
+
+        <ImageView
+            android:id="@+id/imgIntro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/teaching"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:id="@+id/tvIntro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/titleIntroPage"
+            android:textStyle="bold"
+            android:textSize="26sp"
+            android:layout_below="@+id/imgIntro"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:text="@string/subTitleIntroPage"
+            android:layout_below="@+id/tvIntro"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/btnAlreadyAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/alreadyAccount"
+            android:layout_above="@+id/btnSignUpWithEmail"
+            android:textColor="@color/btn_color"
+            android:layout_centerHorizontal="true"
+            android:textSize="18sp"
+            android:layout_marginBottom="50dp"/>
+
+        <Button
+            android:id="@+id/btnSignUpWithEmail"
+            android:layout_width="302dp"
+            android:layout_height="58dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:drawableLeft="@drawable/icon_email"
+            android:text="@string/sign_up_with_email"
+            android:textSize="16sp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/rounded_button"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"/>
+
+
+</RelativeLayout>

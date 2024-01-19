@@ -102,4 +102,24 @@ Add the maggi masala on to it
     <string name="sign_in">Sign In</string>
     <string name="mssv">MSSV</string>
     <string name="accept">Accept</string>
+    <string name="title">"Time is really the only capital that any human being has, and the only thing he can\'t afford to lose."</string>
+    <string name="thomas_edison">- Thomas Edison.</string>
+    <string name="continue_btn">Continue</string>\
+    <string name="titleIntroPage">Education is for all</string>
+    <string name="subTitleIntroPage">Learning never exhausts the mind</string>
+    <string name="alreadyAccount">Already have an account? Login</string>
+    <string name="sign_up_with_email">Sign up with email</string>
+    <string name="create_account_with_email">Create Account with Email</string>
+    <string name="create_account">Create Account</string>
+    <string name="your_email">Your email:</string>
+    <string name="example_email_com">example@email.com</string>
+    <string name="password_editText">Password</string>
+    <string name="settingTitle_vietnamese">Cài đặt</string>
+    <string name="setting_content_vietnamese">Thay đổi ngôn ngữ, đăng xuất tài khoản ...</string>
+    <string name="notify_vietnamese">Thông báo</string>
+    <string name="receive_notify_vietnamese">Nhận thông báo lịch học trước</string>
+    <string name="languageSelector_vietnamese">Ngôn ngữ</string>
+    <string name="logout_vietnamese">Đăng xuất</string>
+
+
 </resources>

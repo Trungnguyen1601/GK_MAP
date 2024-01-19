@@ -12,11 +12,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Điểm danh ngày 10"/>
+        android:text="Thông tin lớp học"
+        android:textStyle="bold"
+        android:textColor="@color/title"
+        android:textSize="24sp"/>
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"/>
 
 </LinearLayout>

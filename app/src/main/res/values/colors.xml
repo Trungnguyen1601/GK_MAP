@@ -21,6 +21,7 @@
     <color name="divider_color">#4E75C2</color>
     <color name="icon_color">#FFA2A4AB</color>
     <color name="btn_color">#6C63FF</color>
+    <color name="title">#6C63FF</color>
     <color name="page_color">#6C63FF</color>
     <color name="title_color">#484848</color>
     <color name="color_profile_welcome">#7C868F</color>

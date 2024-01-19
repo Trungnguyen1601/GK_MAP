@@ -9,8 +9,8 @@
 
     <item
         android:id="@+id/shorts"
-        android:title="Shorts"
-        android:icon="@drawable/baseline_whatshot_24"
+        android:title="Scan QR"
+        android:icon="@drawable/icon_camera"
         />
 
     <item
@@ -18,11 +18,11 @@
 
     <item
         android:id="@+id/subscriptions"
-        android:title="Subscriptions"
-        android:icon="@drawable/baseline_subscriptions_24" />
+        android:title="Profile"
+        android:icon="@drawable/account_box" />
     <item
         android:id="@+id/library"
-        android:title="Library"
-        android:icon="@drawable/baseline_video_library_24" />
+        android:title="Settings"
+        android:icon="@drawable/icon_setting" />
 
 </menu>

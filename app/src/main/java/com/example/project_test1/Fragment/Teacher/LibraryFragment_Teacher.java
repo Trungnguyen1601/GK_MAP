@@ -31,7 +31,7 @@ public class LibraryFragment_Teacher extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    Button btnLogOut;
+    TextView btnLogOut;
     TextView txtUser;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
@@ -75,8 +75,8 @@ public class LibraryFragment_Teacher extends Fragment {
         View view = inflater.inflate(R.layout.fragment_library_teacher, container, false);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        btnLogOut = (Button) view.findViewById(R.id.btnLogOut);
-        txtUser = (TextView) view.findViewById(R.id.txtUser);
+        btnLogOut = (TextView) view.findViewById(R.id.btn_LogOut);
+//        txtUser = (TextView) view.findViewById(R.id.txtUser);
         user = firebaseAuth.getCurrentUser();
 
         if (user == null ) {
@@ -85,7 +85,7 @@ public class LibraryFragment_Teacher extends Fragment {
             getActivity().finish();
         }
         else {
-            txtUser.setText(user.getEmail());
+//            txtUser.setText(user.getEmail());
         }
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {

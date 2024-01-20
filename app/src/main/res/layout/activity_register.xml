@@ -21,9 +21,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-            android:text="@string/resgister_student"
+            android:text="@string/register_student"
             android:textColor="@color/primary_text"
-            android:textSize="@dimen/_18ssp"
+            android:textSize="32sp"
             android:textStyle="bold"/>
 
         <FrameLayout
@@ -55,7 +55,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/background_input"
+            android:background="@drawable/shape_et_bg"
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="8dp"
             android:hint="@string/name"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
@@ -63,12 +65,15 @@
             android:paddingStart="@dimen/_16sdp"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/_13ssp" />
+
         <EditText
             android:id="@+id/inputMSSV"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:background="@drawable/background_input"
+            android:background="@drawable/shape_et_bg"
+            android:drawableStart="@drawable/number"
+            android:drawablePadding="8dp"
             android:hint="@string/mssv"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
@@ -76,12 +81,15 @@
             android:paddingStart="@dimen/_16sdp"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/_13ssp" />
+
         <EditText
             android:id="@+id/inputClass"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:background="@drawable/background_input"
+            android:background="@drawable/shape_et_bg"
+            android:drawableStart="@drawable/baseline_class_24"
+            android:drawablePadding="8dp"
             android:hint="Class"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
@@ -89,12 +97,15 @@
             android:paddingStart="@dimen/_16sdp"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/_13ssp" />
+
         <EditText
             android:id="@+id/inputEmail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:background="@drawable/background_input"
+            android:background="@drawable/shape_et_bg"
+            android:drawableStart="@drawable/base_email"
+            android:drawablePadding="8dp"
             android:hint="@string/email"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
@@ -108,7 +119,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:background="@drawable/background_input"
+            android:background="@drawable/shape_et_bg"
+            android:drawableStart="@drawable/ic_lock"
+            android:drawablePadding="8dp"
             android:hint="Password"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
@@ -122,7 +135,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:background="@drawable/background_input"
+            android:background="@drawable/shape_et_bg"
+            android:drawableStart="@drawable/ic_lock"
+            android:drawablePadding="8dp"
             android:hint="@string/confirm_password"
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
@@ -130,6 +145,14 @@
             android:paddingStart="@dimen/_16sdp"
             android:textColor="@color/primary_text"
             android:textSize="@dimen/_13ssp" />
+
+        <CheckBox
+            android:id="@+id/showPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="16dp"
+            android:text="@string/show_password" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -140,12 +163,12 @@
                 android:id="@+id/buttonSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
-                android:layout_marginTop="@dimen/_16sdp"
                 android:text="@string/sign_up"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold"
-                app:cornerRadius="@dimen/_8sdp"/>
+                app:cornerRadius="@dimen/_8sdp"
+                android:textAllCaps="false"/>
 
             <ProgressBar
                 android:id="@+id/progressBar"

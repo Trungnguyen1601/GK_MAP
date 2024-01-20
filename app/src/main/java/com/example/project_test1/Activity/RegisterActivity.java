@@ -11,10 +11,14 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -48,6 +52,8 @@ public class RegisterActivity extends AppCompatActivity {
     TextView textAddImage;
     FirebaseAuth firebaseAuth;
 
+    CheckBox checkPassword;
+
     private PreferenceManager preferenceManager;
 
 
@@ -70,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
         imageProfile = findViewById(R.id.imageProfile);
         textAddImage = findViewById(R.id.textAddImage);
         progressBar = findViewById(R.id.progressBar);
+        checkPassword = findViewById(R.id.showPassword);
 
         //
         setListeners();
@@ -115,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
     {
         if(encodeImage == null)
         {
-            showToast("Select Profile imgae");
+            showToast("Select Profile image");
             return false;
         }
         else if (signupName.getText().toString().trim().isEmpty())
@@ -188,6 +195,19 @@ public class RegisterActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 pickImage.launch(intent);
+            }
+        });
+
+        checkPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    signupPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    signupconfirmPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    signupPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    signupconfirmPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
             }
         });
     }

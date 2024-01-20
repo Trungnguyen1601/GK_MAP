@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.project_test1.Activity.LoginActivity;
@@ -72,7 +71,7 @@ public class LibraryFragment_Teacher extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_library_teacher, container, false);
+        View view = inflater.inflate(R.layout.fragment_setting_teacher, container, false);
 
         firebaseAuth = FirebaseAuth.getInstance();
         btnLogOut = (TextView) view.findViewById(R.id.btn_LogOut);

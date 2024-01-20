@@ -8,19 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.project_test1.Activity.LoginActivity;
 import com.example.project_test1.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.jetbrains.annotations.NotNull;
-import com.budiyev.android.codescanner.CodeScanner;
-import com.budiyev.android.codescanner.CodeScannerView;
-import com.budiyev.android.codescanner.DecodeCallback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,7 +73,7 @@ public class LibraryFragment_Student extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_library_student, container, false);
+        View view = inflater.inflate(R.layout.fragment_setting_student, container, false);
         firebaseAuth = FirebaseAuth.getInstance();
         btnLogOut = (TextView) view.findViewById(R.id.btn_LogOut);
 //        txtUser = (TextView) view.findViewById(R.id.txtUser);

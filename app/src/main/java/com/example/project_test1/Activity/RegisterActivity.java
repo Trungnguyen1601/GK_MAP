@@ -230,10 +230,6 @@ public class RegisterActivity extends AppCompatActivity {
                     } catch (FileNotFoundException e) {
                         throw new RuntimeException(e);
                     }
-
-
-
-
                 }
             }
     );

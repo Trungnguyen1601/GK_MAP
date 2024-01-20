@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
 
     <ImageView
@@ -56,42 +57,53 @@
         android:layout_marginTop="16dp"
         android:layout_marginStart="40dp"/>
 
-    <EditText
-        android:id="@+id/editPassword"
-        android:layout_width="334dp"
-        android:layout_height="51dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/password"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/shape_et_bg"
-        android:drawableStart="@drawable/ic_lock"
-        android:padding="10dp"
-        android:drawablePadding="10dp"
-        android:hint="Password"
-        android:inputType="textPassword" />
+        app:boxStrokeWidth="0dp"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/editPassword"
+            android:layout_width="334dp"
+            android:layout_height="51dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_et_bg"
+            android:drawableStart="@drawable/ic_lock"
+            android:drawablePadding="10dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="10dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <TextView
         android:id="@+id/forgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot Password?"
+        android:text="@string/forgot_password"
         android:textSize="16sp"
-        android:layout_below="@+id/editPassword"
+        android:layout_below="@+id/pass"
         android:layout_alignParentEnd="true"
         android:textStyle="italic"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"/>
-    
+
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="169dp"
         android:layout_height="53dp"
-        android:text="Login"
-        android:background="@drawable/rounded_button"
-        android:layout_centerHorizontal="true"
-        android:textSize="18sp"
         android:layout_below="@+id/forgotPassword"
-        android:layout_marginTop="30dp"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_button"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/signUpWithEmail"

@@ -46,6 +46,8 @@
         android:layout_marginBottom="60dp"
         android:layout_centerHorizontal="true"
         android:text="@string/continue_btn"
-        android:background="@drawable/rounded_button"/>
+        android:textSize="18sp"
+        android:background="@drawable/rounded_button"
+        android:textAllCaps="false"/>
 
 </RelativeLayout>

@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public EditText loginEmail, loginPassword;
     Button btnLogin;
-    TextView registerRedirectText;
+    TextView registerRedirectText, forgotPasswordText;
     FirebaseAuth firebaseAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword = findViewById(R.id.editPassword);
         btnLogin = findViewById(R.id.buttonLogin);
         registerRedirectText = findViewById(R.id.signUpWithEmail);
+        forgotPasswordText = findViewById(R.id.forgotPassword);
 
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -98,17 +99,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        forgotPasswordText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent I = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(I);
+            }
+        });
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Khai báo Firebase
                 CollectionReference usersRef = db.collection("users");
-
-
-
-
                 String userEmail = loginEmail.getText().toString();
                 String userPassword = loginPassword.getText().toString();
+
                 if (userEmail.isEmpty()) {
                     loginEmail.setError("Provide your Email first!");
                     loginEmail.requestFocus();

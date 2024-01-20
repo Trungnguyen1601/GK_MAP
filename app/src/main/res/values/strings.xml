@@ -120,6 +120,8 @@ Add the maggi masala on to it
     <string name="receive_notify_vietnamese">Nhận thông báo lịch học trước</string>
     <string name="languageSelector_vietnamese">Ngôn ngữ</string>
     <string name="logout_vietnamese">Đăng xuất</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="link_has_been_sent">Reset password link has been sent to your registered Email</string>
 
 
 </resources>

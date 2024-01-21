@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.project_test1.Activity.LoginActivity;
@@ -30,6 +31,7 @@ public class LibraryFragment_Teacher extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    Button btnLanguage;
     TextView btnLogOut;
     TextView txtUser;
     FirebaseAuth firebaseAuth;
@@ -75,6 +77,7 @@ public class LibraryFragment_Teacher extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         btnLogOut = (TextView) view.findViewById(R.id.btn_LogOut);
+        btnLanguage = (Button) view.findViewById(R.id.language_btn);
 //        txtUser = (TextView) view.findViewById(R.id.txtUser);
         user = firebaseAuth.getCurrentUser();
 
@@ -98,6 +101,7 @@ public class LibraryFragment_Teacher extends Fragment {
 
             }
         });
+
 
         return view;
     }

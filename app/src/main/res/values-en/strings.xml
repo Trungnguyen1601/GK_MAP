@@ -1,8 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Attendance MAP</string>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
@@ -11,8 +11,6 @@
     <string name="click_to_login">Click to login</string>
     <string name="click_to_register">Click to register</string>
     <string name="logout">Logout</string>
-
-    //pasta
 
     <string name="pastaIngredients">Pasta
 \nCream Cheese
@@ -92,6 +90,7 @@ Add the maggi masala on to it
 \nAdd the maggi masala on to it
 \nWait for 2 mins
 \nMaggi is ready!</string>
+
     <string name="sv_class">Mobile Application Programming</string>
     <string name="school">Electrical and Electronics School</string>
     <string name="sign_up">Sign Up</string>
@@ -124,31 +123,6 @@ Add the maggi masala on to it
     <string name="register_student">Register Student</string>
     <string name="show_password">Show password</string>
 
-
-    <!--change language-->
     <string name="change_language_title">Language</string>
-
-    <!--untranslatable-->
-    <string name="language_english" translatable="false">English</string>
-    <string name="language_japanese" translatable="false">日本の</string>
-    <string name="language_vietnamese" translatable="false">Tiếng Việt</string>
-
-    <string-array name="language_names">
-        <item>@string/language_english</item>
-        <item>@string/language_japanese</item>
-        <item>@string/language_vietnamese</item>
-    </string-array>
-
-    <string name="language_english_code" translatable="false">en</string>
-    <string name="language_japanese_code" translatable="false">ja</string>
-    <string name="language_vietnamese_code" translatable="false">vi</string>
-    <string name="profile_student">Profile</string>
-
-    <string-array name="language_codes">
-        <item>@string/language_english_code</item>
-        <item>@string/language_japanese_code</item>
-        <item>@string/language_vietnamese_code</item>
-    </string-array>
-
 
 </resources>

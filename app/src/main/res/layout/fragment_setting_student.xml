@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/settingTitle_vietnamese"
+        android:text="@string/settingTitle"
         android:textStyle="bold"
         android:textSize="24sp"
         android:textColor="@color/white"
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="284dp"
-        android:text="@string/notify_vietnamese"
+        android:text="@string/notify"
         android:layout_marginStart="74dp"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -66,10 +66,9 @@
         android:layout_marginTop="334dp"
         android:layout_marginStart="72dp"
         android:textSize="20sp"
-        android:text="@string/languageSelector_vietnamese"
+        android:text="@string/languageSelector"
         android:textColor="@color/white"
         android:textStyle="bold"/>
-
 
 
     <ImageView
@@ -83,7 +82,7 @@
         android:id="@+id/btn_LogOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/logout_vietnamese"
+        android:text="@string/logout"
         android:layout_marginTop="404dp"
         android:layout_marginStart="80dp"
         android:textSize="20sp"

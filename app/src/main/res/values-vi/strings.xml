@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ứng dụng Điểm Danh</string>
+    <string name="open_nav">Mở Khung Điều Hướng</string>
+    <string name="close_nav">Đóng Khung Điều Hướng</string>
+    <string name="hello_blank_fragment">Xin chào, đoạn mã trống</string>
+    <string name="login">Đăng Nhập</string>
+    <string name="email">Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="register">Đăng Ký</string>
+    <string name="click_to_login">Nhấn để đăng nhập</string>
+    <string name="click_to_register">Nhấn để đăng ký</string>
+    <string name="logout">Đăng Xuất</string>
+
+    <string name="pastaIngredients">Mì Ý
+\nSữa Kem
+\nPhô Mai Parmesan
+\nDầu Ô Liu
+\nTỏi
+\nMuối, Tiêu</string>
+    <string name="pastaDesc">Nấu mì cho đến khi chín vừa
+\nXào tỏi trong dầu ô liu cho đến khi thơm
+\nThêm sữa kem, nước luộc mì, phô mai, và khuấy đều
+\nĐổ nước luộc mì và mì vào chảo
+\nKhuấy đều, thêm nước luộc mì nếu cần</string>
+
+    <string name="maggiIngredients">Mì Maggi
+\nNước
+\nGia Vị Mì Maggi</string>
+    <string name="maggieDesc">Thêm một và nửa chén nước
+\nThêm mì Maggi và đun sôi
+\nThêm gia vị Mì Maggi vào
+\nChờ 2 phút
+\nMì Maggi đã sẵn sàng!</string>
+
+    <string name="cakeIngredients">Bánh Kem
+\nBột Nở
+\nĐường
+\nBơ
+\nQuả Trứng
+\nSữa</string>
+    <string name="cakeDesc">Trộn bột nở, đường, bơ và quả trứng
+\nThêm sữa và khuấy đều
+\nĐổ hỗn hợp vào khuôn bánh
+\nNướng trong lò đến khi chín vàng
+\nBánh Kem đã sẵn sàng!</string>
+
+    <string name="pancakeIngredients">Mì Maggi
+\nNước
+\nMaggi Masala</string>
+    <string name="pancakeDesc">Thêm một cốc rưỡi nước
+Thêm mì maggi và đun sôi
+Thêm maggi masala vào nó
+\nĐợi 2 phút
+\nMaggi đã sẵn sàng!</string>
+
+    //pizza
+
+    <string name="pizzaIngredients">Mì Maggi
+\nNước
+\nMaggi Masala</string>
+    <string name="pizzaDesc">Thêm một cốc rưỡi nước
+Thêm mì maggi và đun sôi
+Thêm maggi masala vào nó
+\nĐợi 2 phút
+\nMaggi đã sẵn sàng!</string>
+
+    // bánh mì kẹp thịt
+
+    <string name="burgerIngredients">Mì Maggi
+\nNước
+\nMaggi Masala</string>
+    <string name="burgerDesc">Thêm một cốc rưỡi nước
+\nThêm mì maggi và đun sôi
+\nThêm maggi masala vào đó
+\nĐợi 2 phút
+\nMaggi đã sẵn sàng!</string>
+
+    //khoai tây chiên
+
+    <string name="friesIngredients">Mì Maggi
+\nNước
+\nMaggi Masala</string>
+    <string name="friesDesc">Thêm một cốc rưỡi nước
+\nThêm mì maggi và đun sôi
+\nThêm maggi masala vào đó
+\nĐợi 2 phút
+\nMaggi đã sẵn sàng!</string>
+
+    <!-- Các mô tả của món ăn khác có thể được thêm vào tương tự như trên -->
+
+    <string name="sv_class">Lập Trình Ứng Dụng Di Động</string>
+    <string name="school">Trường Điện - Điện Tử</string>
+    <string name="sign_up">Đăng Ký</string>
+    <string name="confirm_password">Xác Nhận Mật Khẩu</string>
+    <string name="name">Tên</string>
+    <string name="add_image">Thêm Ảnh</string>
+    <string name="resgister_student">Đăng Ký Sinh Viên</string>
+    <string name="sign_in">Đăng Nhập</string>
+    <string name="mssv">MSSV</string>
+    <string name="accept">Chấp Nhận</string>
+    <string name="title">"Thời gian thực sự là vốn duy nhất mà bất kỳ con người nào cũng có, và đó là thứ duy nhất mà anh ta không thể mất."</string>
+    <string name="thomas_edison">- Thomas Edison.</string>
+    <string name="continue_btn">Tiếp Tục</string>
+    <string name="titleIntroPage">Giáo Dục Dành Cho Mọi Người</string>
+    <string name="subTitleIntroPage">Học không bao giờ làm cạn kiệt tâm hồn</string>
+    <string name="alreadyAccount">Đã có tài khoản? Đăng nhập</string>
+    <string name="sign_up_with_email">Đăng ký bằng email</string>
+    <string name="create_account_with_email">Tạo tài khoản bằng email</string>
+    <string name="create_account">Tạo Tài Khoản</string>
+    <string name="your_email">Email của bạn:</string>
+    <string name="example_email_com">example@email.com</string>
+    <string name="password_editText">Mật khẩu</string>
+    <string name="settingTitle">Cài Đặt</string>
+    <string name="setting_content">Thay đổi ngôn ngữ, đăng xuất tài khoản...</string>
+    <string name="notify">Thông Báo</string>
+    <string name="receive_notify">Nhận thông báo về lịch học trước đó</string>
+    <string name="languageSelector">Ngôn Ngữ</string>
+    <string name="forgot_password">Quên Mật Khẩu?</string>
+    <string name="link_has_been_sent">Đường link đặt lại mật khẩu đã được gửi đến Email đã đăng ký của bạn</string>
+    <string name="register_student">Đăng Ký Sinh Viên</string>
+    <string name="show_password">Hiển Thị Mật Khẩu</string>
+
+    <string name="change_language_title">Ngôn Ngữ</string>
+
+
+</resources>

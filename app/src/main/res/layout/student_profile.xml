@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/profile_student"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:textColor="@color/title"/>
+
+    <ImageView
+        android:id="@+id/bkhn_bg"
+        android:layout_width="match_parent"
+        android:layout_height="195dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/bkbg" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imageProfileStudent"
+        android:layout_width="144dp"
+        android:layout_height="144dp"
+        android:background="@drawable/background_image"
+        android:layout_marginTop="88dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        app:riv_oval="true"/>
+
+    <TextView
+        android:id="@+id/studentName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_below="@+id/bkhn_bg"
+        android:text="Quang Khiem"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"/>
+
+    <RelativeLayout
+        android:layout_below="@+id/studentName"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:elevation="10dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/shadow">
+
+        <ImageView
+            android:id="@+id/buttonEditProfile"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/edit"/>
+
+        <TextView
+            android:layout_below="@+id/buttonEditProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mã sinh viên"
+            android:layout_marginStart="12dp"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/studentID"
+            android:layout_below="@+id/buttonEditProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20192930"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp"/>
+
+        <LinearLayout
+            android:layout_below="@+id/studentID"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_below="@+id/studentID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày sinh"
+            android:layout_marginStart="12dp"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/studentDoB"
+            android:layout_below="@+id/studentID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="16/01/2001"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <LinearLayout
+            android:layout_below="@+id/studentDoB"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_below="@+id/studentDoB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lớp"
+            android:layout_marginStart="12dp"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/studentClass"
+            android:layout_below="@+id/studentDoB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Điện tử 06 - K64"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <LinearLayout
+            android:layout_below="@+id/studentClass"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_below="@+id/studentClass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giới tính"
+            android:layout_marginStart="12dp"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/studentSex"
+            android:layout_below="@+id/studentClass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nam"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <LinearLayout
+            android:layout_below="@+id/studentSex"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_below="@+id/studentSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:layout_marginStart="12dp"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/studentEmail"
+            android:layout_below="@+id/studentSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="khiem.pq192938@sis.hust.edu.vn"
+            android:textColor="@color/title"
+            android:textStyle="bold"
+            android:layout_marginStart="90dp"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <LinearLayout
+            android:layout_below="@+id/studentEmail"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_below="@+id/studentEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trường"
+            android:layout_marginStart="12dp"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/studentSchool"
+            android:layout_below="@+id/studentEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trường Điện - Điện tử"
+            android:textStyle="bold"
+            android:layout_marginStart="90dp"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <LinearLayout
+            android:layout_below="@+id/studentSchool"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_below="@+id/studentSchool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hệ"
+            android:layout_marginStart="12dp"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/studentSpecialize"
+            android:layout_below="@+id/studentSchool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kỹ sư chính quy"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"/>
+
+        <LinearLayout
+            android:layout_below="@+id/studentSpecialize"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"/>
+
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>

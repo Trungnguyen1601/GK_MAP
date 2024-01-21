@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Thông tin lớp học"
+        android:text="@string/list_student"
         android:textStyle="bold"
         android:textColor="@color/title"
         android:textSize="24sp"/>

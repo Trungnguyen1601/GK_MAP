@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/home"
-        android:title="Class"
+        android:title="@string/class_txt"
         android:icon="@drawable/icon_classroom"
         />
 
     <item
         android:id="@+id/shorts"
-        android:title="Attendance"
+        android:title="@string/attendance_txt"
         android:icon="@drawable/pen"
         />
 
@@ -19,11 +19,11 @@
 
     <item
         android:id="@+id/subscriptions"
-        android:title="Statistics"
+        android:title="@string/statistics_txt"
         android:icon="@drawable/analytics" />
     <item
         android:id="@+id/library"
-        android:title="Settings"
+        android:title="@string/settings"
         android:icon="@drawable/icon_setting" />
 
 </menu>

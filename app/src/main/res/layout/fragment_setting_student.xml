@@ -70,6 +70,15 @@
         android:textColor="@color/white"
         android:textStyle="bold"/>
 
+    <ImageView
+        android:id="@+id/buttonChangeLanguage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/flag_us"
+        android:layout_below="@+id/switchNotify"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"/>
+
 
     <ImageView
         android:layout_width="40dp"

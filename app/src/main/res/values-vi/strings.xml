@@ -122,6 +122,15 @@ Thêm maggi masala vào nó
     <string name="show_password">Hiển Thị Mật Khẩu</string>
 
     <string name="change_language_title">Ngôn Ngữ</string>
+    <string name="home">Trang chủ</string>
+    <string name="scan_qr">Quét QR</string>
+    <string name="profile">Hồ sơ</string>
+    <string name="settings">Cài đặt</string>
+    <string name="list_student">Thông tin lớp học</string>
+    <string name="class_txt">Lớp</string>
+    <string name="attendance_txt">Điểm danh</string>
+    <string name="statistics_txt">Thống kê</string>
+
 
 
 </resources>

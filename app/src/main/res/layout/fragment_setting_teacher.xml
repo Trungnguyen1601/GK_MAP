@@ -70,12 +70,14 @@
         android:textColor="@color/white"
         android:textStyle="bold"/>
 
-    <Button
-        android:id="@+id/language_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Vietnamese"/>
-
+    <ImageView
+        android:id="@+id/buttonChangeLanguage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/flag_us"
+        android:layout_below="@+id/switchNotify"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"/>
 
     <ImageView
         android:layout_width="40dp"

@@ -124,5 +124,15 @@ Add the maggi masala on to it
     <string name="show_password">Show password</string>
 
     <string name="change_language_title">Language</string>
+    <string name="home">Home</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="profile">Profile</string>
+    <string name="settings">Settings</string>
+    <string name="list_student">Class information</string>
+    <string name="class_txt">Class</string>
+    <string name="attendance_txt">Attendance</string>
+    <string name="statistics_txt">Statistics</string>
+
+
 
 </resources>

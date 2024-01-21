@@ -125,10 +125,9 @@ public class LibraryFragment_Teacher extends Fragment {
 
                 // Change language when the user clicks the button
                 changeLanguage(newLanguage);
-                updateUIElements(newLanguage);
+
             }
         });
-
 
         return view;
     }
@@ -139,12 +138,8 @@ public class LibraryFragment_Teacher extends Fragment {
         // Gọi hàm để thay đổi ngôn ngữ và cập nhật layout
         updateLocale(language);
 
-        // Replace the fragment with a new instance to refresh UI
-        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-        fragmentTransaction.replace(getId(), new LibraryFragment_Student());
-        fragmentTransaction.addToBackStack(null);  // Optional: Add to back stack if needed
-        fragmentTransaction.commit();
-
+        // Update UI elements directly
+        updateUIElements(language);
     }
 
     private void updateLocale(String language) {
@@ -174,6 +169,6 @@ public class LibraryFragment_Teacher extends Fragment {
             Log.d("LanguageChange", "Setting image to flag_us");
             btnChangeLanguage.setImageResource(R.drawable.flag_us);
         }
-        btnChangeLanguage.invalidate();
+        // Không cần gọi btnChangeLanguage.invalidate() vì setImageResource sẽ tự làm điều này
     }
 }
